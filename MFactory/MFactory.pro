@@ -1,5 +1,7 @@
 QT       += core gui
 QT       +=sql
+QT       +=serialport
+QT       += multimedia
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -9,20 +11,21 @@ CONFIG +=console
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    addemployee.cpp \
+    employees.cpp \
     main.cpp \
     mainwindow.cpp \
+    posts.cpp \
     search.cpp \
     stat.cpp
 
 HEADERS += \
-    addemployee.h \
+    employees.h \
     mainwindow.h \
+    posts.h \
     search.h \
     stat.h
 
 FORMS += \
-    addemployee.ui \
     mainwindow.ui \
     search.ui \
     stat.ui

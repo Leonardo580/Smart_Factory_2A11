@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
   MainWindow w;
   w.setWindowIcon(QIcon("C:\\Users\\Anas\\OneDrive\\Workload\\Project 2\\logo.JPG"));
   w.setFont(QFont("Agency FB"));
- QFile file("C:\\Users\\Anas\\Desktop\\Project.Pas\\qt_test\\dark.qss");
+ QFile file("C:\\Users\\Anas\\OneDrive\\Workload\\Project 2\\Smart Factory\\MFactory\\style1.qss");
  file.open(QFile::Text|QFile::ReadOnly);
  QTextStream txt(&file);
  a.setStyleSheet(txt.readAll());
