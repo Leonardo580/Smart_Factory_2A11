@@ -63,7 +63,7 @@ bool Employees::add_employee()
                 "(:CIN, :Full_Name,:Age,  :Address, :Email)");
   query.bindValue(":CIN",QVariant(CIN));
   query.bindValue(":Full_Name",QVariant(Full_Name));
-  query.bindValue(":Age",QVariant(Age));
+  query.bindValue(":Age",QVariant(age));
   query.bindValue(":Address",QVariant(Address));
   query.bindValue(":Email",QVariant(Email));
   return query.exec();
@@ -104,9 +104,23 @@ bool Employees::update_employee()
 bool Employees::search_Employee(QString cin)
 {
   QSqlQuery query;
-  query.prepare("select CIN from Employees where CIN=:cin");
+  query.prepare("select CIN from Employees where (CIN=:cin)");
   query.bindValue(":cin", QVariant(cin));
   return query.exec();
+
+}
+
+
+QSqlQueryModel * Employees::display_Employee()
+{
+  QSqlQueryModel *query=new QSqlQueryModel();
+  query->setQuery("Select * from Employees");
+  query->setHeaderData(0,Qt::Horizontal,QObject::tr("CIN"));
+  query->setHeaderData(1,Qt::Horizontal,"Full Name");
+  query->setHeaderData(2,Qt::Horizontal,"Age");
+  query->setHeaderData(3,Qt::Horizontal,"Address");
+  query->setHeaderData(4,Qt::Horizontal,"Email");
+  return query;
 
 }
 

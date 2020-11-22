@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui charts
 QT       +=sql
 QT       +=serialport
 QT       += multimedia
@@ -11,24 +11,24 @@ CONFIG +=console
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addemployee.cpp \
     employees.cpp \
     main.cpp \
     mainwindow.cpp \
     posts.cpp \
-    search.cpp \
-    stat.cpp
+    search.cpp
 
 HEADERS += \
+    addemployee.h \
     employees.h \
     mainwindow.h \
     posts.h \
-    search.h \
-    stat.h
+    search.h
 
 FORMS += \
+    addemployee.ui \
     mainwindow.ui \
-    search.ui \
-    stat.ui
+    search.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

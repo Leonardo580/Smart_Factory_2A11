@@ -4,6 +4,7 @@
 #include <QString>
 #include <QSqlQuery>
 #include <QVariant>
+#include <QSqlQueryModel>
 class Posts
 {
   QString CIN, Job_Desc;
@@ -31,6 +32,7 @@ public:
   bool remove_Posts(int id);
   bool remove_Posts();
   bool update_Posts();
+  QSqlQueryModel * display_Posts();
 };
 
 #endif // POSTS_H

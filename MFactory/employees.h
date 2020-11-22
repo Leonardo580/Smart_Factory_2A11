@@ -3,6 +3,7 @@
 #include <QVariant>
 #include <QtSql/QSqlQuery>
 #include <QString >
+#include <QSqlQueryModel>
 class Employees
 {
   QString CIN, Full_Name, Address, Email ;
@@ -29,6 +30,7 @@ public:
   bool remove_employee();
   bool update_employee();
   bool search_Employee(QString cin);
+  QSqlQueryModel * display_Employee() ;
 
  // ~Employees();
 };

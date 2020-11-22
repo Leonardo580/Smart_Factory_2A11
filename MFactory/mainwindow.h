@@ -10,10 +10,14 @@
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QSqlQueryModel>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QChartView>
 #include "QSound"
 #include "employees.h"
 #include "posts.h"
 QT_BEGIN_NAMESPACE
+QT_CHARTS_USE_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
@@ -23,7 +27,7 @@ class MainWindow : public QMainWindow
 
 public:
   MainWindow(QWidget *parent = nullptr);
-
+  void Stat();
   ~MainWindow();
 
 private slots:
@@ -44,10 +48,20 @@ private slots:
 
   void on_DeleteEmployee_button_2_clicked();
 
+  void on_AddEmployee_clicked();
+
+  void on_UpdateEmployee_clicked();
+
+  void on_Search_line_editingFinished();
+
+  void on_tabWidget_tabBarClicked(int index);
+
 private:
   Ui::MainWindow *ui;
   QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
   QSqlQueryModel *m=new QSqlQueryModel;
-  QSound *sound= new QSound(QString("button1.wav"));
+  QSound *sound= new QSound(QString("://button1.wav"));
+  Employees em;
+  Posts po;
 };
 #endif // MAINWINDOW_H

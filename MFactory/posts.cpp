@@ -124,3 +124,17 @@ bool Posts::update_Posts()
   return query.exec();
 
 }
+
+QSqlQueryModel *Posts::display_Posts()
+{
+
+  QSqlQueryModel *query=new QSqlQueryModel();
+  query->setQuery("Select * from Posts");
+  query->setHeaderData(0,Qt::Horizontal,"ID");
+  query->setHeaderData(1,Qt::Horizontal,"CIN");
+  query->setHeaderData(2,Qt::Horizontal,"Salary");
+  query->setHeaderData(3,Qt::Horizontal,"Benefits");
+  query->setHeaderData(4,Qt::Horizontal,"Hours_worked");
+  query->setHeaderData(5,Qt::Horizontal,"Job_Description");
+  return query;
+}
