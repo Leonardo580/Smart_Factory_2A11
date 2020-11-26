@@ -12,9 +12,9 @@ AddEmployee::AddEmployee(QWidget *parent) :
   ui->CIN_Employee_text->setMaxLength(8);
   ui->CIN_Employee_text->setValidator(new QRegExpValidator(QRegExp("[0-9]*")));
   ui->Age_Employee_text->setMaxLength(3);
-  ui->Age_Employee_text->setValidator(new QRegExpValidator(QRegExp("[0-9]*")));
-  ui->Name_Employee_text->setValidator(new QRegExpValidator(QRegExp("[a-z]*")));
-  ui->Address_Employee_text->setValidator(new QRegExpValidator(QRegExp("[a-z0-9]*")));
+  ui->Age_Employee_text->setValidator(new QRegExpValidator(QRegExp("\\w")));
+  ui->Name_Employee_text->setValidator(new QRegExpValidator(QRegExp("\\w")));
+  ui->Address_Employee_text->setValidator(new QRegExpValidator(QRegExp("\\w|\\b")));
   ui->Email_Employee_text->setValidator(new QRegExpValidator(QRegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")));
 }
 

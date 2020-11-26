@@ -13,9 +13,15 @@
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 #include <QtCharts/QChartView>
+#include <QtCore>
+#include <QTcpSocket>
+#include <QSslSocket>
+#include <QNetworkProxy>
+#include <QtMath>
 #include "QSound"
 #include "employees.h"
 #include "posts.h"
+#include "src/SmtpMime"
 QT_BEGIN_NAMESPACE
 QT_CHARTS_USE_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,10 +34,11 @@ class MainWindow : public QMainWindow
 public:
   MainWindow(QWidget *parent = nullptr);
   void Stat();
+  void animation_button(QPushButton* b);
   ~MainWindow();
 
 private slots:
-  void on_pushButton_clicked();
+
   //void on_addnew_clicked();
   void on_search_clicked();
 
@@ -55,6 +62,12 @@ private slots:
   void on_Search_line_editingFinished();
 
   void on_tabWidget_tabBarClicked(int index);
+
+  void on_tableView_2_activated(const QModelIndex &index);
+
+  void on_pushButton_clicked();
+
+  void on_comboBox_activated(int index);
 
 private:
   Ui::MainWindow *ui;

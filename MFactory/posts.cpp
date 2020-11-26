@@ -125,6 +125,15 @@ bool Posts::update_Posts()
 
 }
 
+QSqlQueryModel *Posts::search(const QString& id)
+{
+  QSqlQueryModel *m = new QSqlQueryModel;
+  QSqlQuery query("Select Posts where (id=?)");
+  query.addBindValue(id);
+  m->setQuery(query);
+  return m;
+}
+
 QSqlQueryModel *Posts::display_Posts()
 {
 

@@ -83,11 +83,11 @@ void MainWindow::animation_button(QPushButton *b)
     {
       QPropertyAnimation *p = new QPropertyAnimation(b, "geometry");
       p->setDuration(500);
-      p->start();
       p->setStartValue(b->geometry());
-     // a*=-1;
+      // a*=-1;
       p->setEndValue(QRect(b->geometry().x()-a, b->geometry().y(), b->width(), b->height()));
       p->setLoopCount(3);
+      p->start();
       p->deleteLater();
 
     }

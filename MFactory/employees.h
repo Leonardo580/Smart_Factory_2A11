@@ -31,6 +31,7 @@ public:
   bool update_employee();
   bool search_Employee(QString cin);
   QSqlQueryModel * display_Employee() ;
+  QSqlQueryModel* sort_employees(int index);
 
  // ~Employees();
 };
