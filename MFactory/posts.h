@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QVariant>
 #include <QSqlQueryModel>
+#include <QDebug>
 class Posts
 {
   QString CIN, Job_Desc;

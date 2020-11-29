@@ -7,30 +7,23 @@
 #include <QLayout>
 #include <QPushButton>
 #include "addemployee.h"
+#include "email.h"
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
 {
 
   ui->setupUi(this);
-  QPushButton *add= ui->AddEmployee;
-  QPixmap add_image("C:\\Users\\Anas\\OneDrive\\Workload\\Project 2\\Smart Factory\\MFactory\\Resources\\plus.png");
-  QIcon add_icon(":/Resources/plus.png");
-  add->setIcon(add_icon);
-  add->setIconSize(add->size());
-  QIcon deletes(":/Resources/minus.png"),
-      update(":/Resources/edit.png");
+
+  QIcon deletes(":/Resources/minus.png");
   ui->DeleteEmployee->setIcon(deletes);
-  ui->UpdateEmployee->setIcon(update);
+
   ui->DeletePosts->setIcon(deletes);
-  ui->AddPosts->setIcon(add_icon);
-  ui->UpdatePosts->setIcon(update);
+
 
   ui->DeleteEmployee->setIconSize(ui->DeleteEmployee->size());
-  ui->UpdateEmployee->setIconSize(ui->UpdateEmployee->size());
   ui->DeletePosts->setIconSize(ui->DeletePosts->size());
-  ui->AddPosts->setIconSize(ui->AddPosts->size());
-  ui->UpdatePosts->setIconSize(ui->UpdatePosts->size());
+
 
   db.setDatabaseName(QString("Source_Projet2A"));
   db.setUserName("Anas");
@@ -56,24 +49,16 @@ MainWindow::MainWindow(QWidget *parent)
   ui->Email_Employee_text->setValidator(new QRegExpValidator(QRegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")));
 
 
-  /*SmtpClient smtp("smtp.gmail.com", 465, SmtpClient::SslConnection);
-  smtp.setUser("anas.benbrahim@esprit.tn");
-  smtp.setPassword("191JMT4743");
-  //smtp.getSocket()->setProxy(QNetworkProxy::NoProxy);
-  smtp.setAuthMethod(SmtpClient::AuthLogin);
-  MimeMessage message;
-  EmailAddress sender ("anasbenbrahim9@gmail.com","Anas Ben Brahim");
-  message.setSender(&sender);
-  EmailAddress to("mohamedamine.benbrahim@esprit.tn", "mohamed amine");
-  message.addRecipient(&to);
-  message.setSubject("this is a test amine0");
-  if(!smtp.connectToHost())
-    qDebug() << "failed to connect to the host\n";
-  if (!smtp.login())
-    qDebug()<< "failed to login\n";
-  if (!smtp.sendMail(message))
-    qDebug() << "failed to send message\n";
-  smtp.quit();*/
+
+
+  ui->ID_Posts_text->setValidator(new QRegExpValidator(QRegExp("(\\d)*")));
+  ui->CIN_Posts_text->setValidator(new QRegExpValidator(QRegExp("(\\d)*")));
+  ui->CIN_Posts_text->setMaxLength(8);
+  ui->Salary_POsts_text->setValidator(new QRegExpValidator(QRegExp("(\\d)*")));
+  ui->Benefits_Posts_text->setValidator(new QRegExpValidator(QRegExp("(\\d)*")));
+  ui->Job_Posts_text->setValidator(new QRegExpValidator(QRegExp("(\\d|\\s|\\w)*")));
+  ui->Hours_Posts_text_2->setValidator(new QRegExpValidator(QRegExp("(\\d)*")));
+
 
 }
 
@@ -83,11 +68,11 @@ void MainWindow::animation_button(QPushButton *b)
     {
       QPropertyAnimation *p = new QPropertyAnimation(b, "geometry");
       p->setDuration(500);
-      p->start();
       p->setStartValue(b->geometry());
-     // a*=-1;
+      // a*=-1;
       p->setEndValue(QRect(b->geometry().x()-a, b->geometry().y(), b->width(), b->height()));
       p->setLoopCount(3);
+      p->start();
       p->deleteLater();
 
     }
@@ -116,59 +101,11 @@ void MainWindow::on_search_clicked()
 
 
 
-void MainWindow::on_AddEmployee_clicked()
-{
- // ui->tableEmployees->resizeColumnToContents(5);
-  //ui->tableEmployees->sortItems(5,Qt::AscendingOrder);
-  //ui->tableEmployees->insertRow(ui->tableEmployees->rowCount());
-  //while (ui->tableWidget->isItemSelected(ui->tableWidget->currentItem()));
-  QPushButton *a1=ui->AddEmployee, *a2=ui->DeleteEmployee, *a3=ui->UpdateEmployee;
-  QRect  r[]={a1->geometry(),a2->geometry(),a3->geometry()};
-  sound->play();
-  if (ui->AddEmployee->isEnabled()){
-    QPropertyAnimation *p1=new QPropertyAnimation(ui->AddEmployee,"geometry"),
-        *p2= new QPropertyAnimation(ui->DeleteEmployee,"geometry"),*p3 =new QPropertyAnimation(ui->UpdateEmployee,"geometry");
-    QParallelAnimationGroup *p = new QParallelAnimationGroup();
-    p->addAnimation(p1);
-    p->addAnimation(p2);
-    p->addAnimation(p3);
-
-    p1->setDuration(1500);
-    p2->setDuration(1500);
-    p3->setDuration(1500);
-
-
-    p1->setStartValue(a1->geometry());
-    p2->setStartValue(a2->geometry());
-    p3->setStartValue(a3->geometry());
-
-    ui->AddEmployee->setText("Add Employee");
-
-    p1->setEndValue(QRect(a1->geometry().x(),a1->geometry().y(),130,a1->height()));
-    p2->setEndValue(QRect(a2->geometry().x()+120,a2->geometry().y(),a2->width(),a2->height()));
-    p3->setEndValue(QRect(a3->geometry().x()+120,a3->geometry().y(),a3->width(),a3->height()));
-    p->start();
-    }
-
-
-  AddEmployee e;
-  e.exec();
-
-  ui->tableView_2->setModel(em.display_Employee());
-  a1->setGeometry(r[0]);
-  a2->setGeometry(r[1]);
-  a3->setGeometry(r[2]);
- // QIcon add_icon("C:\\Users\\Anas\\OneDrive\\Workload\\Project 2\\Smart Factory\\MFactory\\Resources\\plus.png");
-  ui->AddEmployee->setText("");
-  //ui->AddEmployee->setIcon(add_icon);
- // ui->AddEmployee->setIconSize(r[0].size());
-
-}
-
 void MainWindow::on_DeleteEmployee_clicked()
 {
   QString cin=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),0).data().toString();
-  em.remove_employee(cin);
+  if (QMessageBox::warning(this, "Warning", "Are you sure you want to delete", QMessageBox::Ok|QMessageBox::Cancel)==0)
+    em.remove_employee(cin);
  ui->tableView_2->setModel(em.display_Employee());
 }
 
@@ -185,22 +122,9 @@ void MainWindow::on_AddEmployeeButton_clicked()
 
 }
 
-void MainWindow::on_DeleteEmployee_button_clicked()
-{
-    Employees e;
-    sound->play();
-    e.setCin(ui->CIN_Del_Text->toPlainText());
-    if (e.remove_employee()){
-        QMessageBox::information(this, "Delete Employee", "The employee removed successfully", QMessageBox::Ok);
-      }
-    else
-      QMessageBox::warning(this, "Warning", "the task failed successfully",QMessageBox::Ok);
-}
 
-void MainWindow::on_DeleteEmployee_button_2_clicked()
-{
 
-}
+
 
 
 void MainWindow::on_UpdateEmployee_clicked()
@@ -220,18 +144,43 @@ void MainWindow::on_Search_line_editingFinished()
 
 void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
-  index=3;
+  if (index!=3) return;
   QPieSeries *series= new QPieSeries();
-  series->append("ffff",30);
-  series->append("ghj",50);
-  series->append("hyj",20);
-  QPieSlice *s=series->slices().at(0);
-  s->setLabelVisible();
-  s->setExploded();
-  s->setPen(QPen(Qt::darkBlue,2));
+  QSqlQuery query;
+  query.prepare("select Age from Employees;");
+  QVector<int> v;
+  if(query.exec()){
+      while(query.next()){
+      v.push_back(query.value(0).toInt());
+        }
+  int twenty=0, thirty=0, forty=0;
+  for (QVector<int>::const_iterator it=v.begin(); it!=v.end();it++){
+      if (*it>=40) forty++;
+      else if (*it>=30) thirty++;
+      else twenty++;
+    }
+  int all=twenty+thirty+forty;
+  qDebug()  << float(twenty/all)*100 << " " << (thirty/all)*100 << " "<< (forty/all)*100 << "\n";
+  series->append("Above 20", (qreal)((qreal)twenty/(qreal)all)*100.0);
+  series->append("Above 30",(qreal)((qreal)thirty/(qreal)all)*100);
+  series->append("Above 40",(qreal)((qreal)forty/(qreal)all)*100);
+  //for (int i=0;i<3;i++)
+    {
+      QPieSlice *s=series->slices().at(0);
+      //if (s->event(new QEvent(QEvent::MouseButtonPress)))
+        {
+          s->setLabelVisible();
+          s->setExploded();
+          s->setPen(QPen(Qt::darkBlue,2));
+        }
+      //else
+      {
+         // s->setExploded(false);
+        }
+    }
   QChart *ch= new QChart();
   ch->addSeries(series);
-  ch->setTitle(QString("Test"));
+  ch->setTitle(QString("Age"));
   ch->legend()->show();
   ch->setAnimationOptions(QChart::AllAnimations);
   ch->setTheme(QChart::ChartThemeDark);
@@ -242,6 +191,9 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
   QGridLayout q;
   q.addWidget(chart);
   this->ui->tab_2->setLayout(&q);
+    }
+  else
+    QMessageBox::warning(this,"Error","Unable to fetch values from the DataBase", QMessageBox::Ok);
 }
 
 void MainWindow::on_tableView_2_activated(const QModelIndex &index)
@@ -300,4 +252,70 @@ void MainWindow::on_comboBox_activated(int index)
 {
     ui->tableView_2->setModel(em.sort_employees(index));
 
+}
+
+void MainWindow::on_DeletePosts_clicked()
+{
+  int id=ui->tableViewPost->model()->index(ui->tableView_2->currentIndex().row(),0).data().toInt();
+  if (QMessageBox::warning(this, "Warning", "Are you sure you want to delete", QMessageBox::Ok|QMessageBox::Cancel)==0)
+    po.remove_Posts(id);
+ ui->tableView_2->setModel(em.display_Employee());
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+  Posts p;
+  sound->play();
+  p.setid(ui->ID_Posts_text->text().toInt());
+  p.setCIN(ui->CIN_Posts_text->text());
+  p.setSalary(ui->Salary_POsts_text->text().toDouble());
+  p.setBenefits(ui->Benefits_Posts_text->text().toDouble());
+  p.setJob_Desc(ui->Job_Posts_text->text());
+  p.setHours_Worked(ui->Hours_Posts_text_2->text().toDouble());
+  bool areEmpty=p.getid()<0 || p.getCIN()=="";
+  if (areEmpty){
+      animation_button(ui->pushButton_3);
+
+    }
+  else if (!ui->tableViewPost->currentIndex().isValid()){
+     ui->ID_Posts_text->setText("");
+     ui->CIN_Posts_text->setText("");
+     ui->Salary_POsts_text->setText("");
+     ui->Benefits_Posts_text->setText("");
+     ui->Job_Posts_text->setText("");
+     ui->Hours_Posts_text_2->setText("");
+
+      if (!p.add_Posts())
+        QMessageBox::warning(this, "Error", "An Unknown error", QMessageBox::Ok);
+    }
+  else {
+      if (!p.update_Posts())
+        QMessageBox::warning(this, "Error", "An Unknown error", QMessageBox::Ok);
+    }
+
+  ui->tableViewPost->setModel(po.display_Posts());
+}
+
+void MainWindow::on_tableViewPost_activated(const QModelIndex &index)
+{
+    QString data[6];
+    for (int i=0;i<6;i++)
+      data[i]=ui->tableViewPost->model()->index(ui->tableViewPost->currentIndex().row(),i).data().toString();
+    ui->ID_Posts_text->setText(data[0]);
+    ui->CIN_Posts_text->setText(data[1]);
+    ui->Salary_POsts_text->setText(data[2]);
+    ui->Benefits_Posts_text->setText(data[3]);
+    ui->Hours_Posts_text_2->setText(data[4]);
+    ui->Job_Posts_text->setText(data[5]);
+    qDebug()<< index;
+
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QString to=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),4).data().toString();
+    qDebug() << to;
+    Email e("smtp.gmail.com",465, "anas.benbrahim@esprit.tn","191JMT4743", to, this);
+    e.show();
+    e.exec();
 }

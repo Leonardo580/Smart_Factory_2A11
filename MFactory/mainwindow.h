@@ -51,23 +51,25 @@ private slots:
 
   void on_AddEmployeeButton_clicked();
 
-  void on_DeleteEmployee_button_clicked();
-
-  void on_DeleteEmployee_button_2_clicked();
-
-  void on_AddEmployee_clicked();
-
   void on_UpdateEmployee_clicked();
 
   void on_Search_line_editingFinished();
 
-  void on_tabWidget_tabBarClicked(int index);
+  void on_tabWidget_tabBarClicked(int index=3);
 
   void on_tableView_2_activated(const QModelIndex &index);
 
   void on_pushButton_clicked();
 
   void on_comboBox_activated(int index);
+
+  void on_DeletePosts_clicked();
+
+  void on_pushButton_3_clicked();
+
+  void on_tableViewPost_activated(const QModelIndex &index);
+
+  void on_pushButton_2_clicked();
 
 private:
   Ui::MainWindow *ui;

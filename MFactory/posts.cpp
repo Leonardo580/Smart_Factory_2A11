@@ -79,25 +79,25 @@ void Posts::setSalary(double salary)
 bool Posts::add_Posts()
 {
   QSqlQuery query;
-  /*QString ID=QString::number(id);
+  QString ID=QString::number(id);
   QString sal=QString::number(Salary);
   QString ben=QString::number(Benefits);
-  QString Hour=QString::number(Hours_worked);*/
+  QString Hour=QString::number(Hours_worked);
   query.prepare("INSERT INTO Posts(id, CIN,  Job_Desc,Salary, Benefits, Hours_Worked) values "
-                "(:id, :CIN, :Job_Desc, :Salary, :Benefits, :Hours_Worked)");
-  query.bindValue(":id",QVariant(id));
+                "(:id, :CIN, :Job_Desc, :Salary, :Benefits, :Hours_Worked);");
+  query.bindValue(":id",QVariant(ID));
   query.bindValue(":CIN",QVariant(CIN));
   query.bindValue(":Job_Desc",QVariant(Job_Desc));
-  query.bindValue(":Salary",QVariant(Salary));
-  query.bindValue(":Benefits",QVariant(Benefits));
-  query.bindValue(":Hours_Worked",QVariant(Hours_worked));
+  query.bindValue(":Salary",QVariant(sal));
+  query.bindValue(":Benefits",QVariant(ben));
+  query.bindValue(":Hours_Worked",QVariant(Hour));
   return query.exec();
 }
 
 bool Posts::remove_Posts(int id)
 {
   QSqlQuery query;
-  query.prepare("Delete from Posts where id=:id ");
+  query.prepare("Delete from Posts where (id=:id);");
   query.bindValue(":id",QVariant(id));
   return query.exec();
 }
@@ -105,7 +105,7 @@ bool Posts::remove_Posts(int id)
 bool Posts::remove_Posts()
 {
   QSqlQuery query;
-  query.prepare("Delete from Posts where id=:id ");
+  query.prepare("Delete from Posts where (id=:id) ;");
   query.bindValue(":id",QVariant(Posts::id));
   return query.exec();
 }
@@ -113,8 +113,8 @@ bool Posts::remove_Posts()
 bool Posts::update_Posts()
 {
   QSqlQuery query;
-  query.prepare("Update Posts set  id=:id, CIN=:CIN,  Job_Desc=:Job_Desc, Salary=:Salary, Benefits=:Benefits, "
-                "Hours_Worked=:Hours_Worked where id=:id");
+  query.prepare("Update Posts set  CIN=:CIN,  Job_Desc=:Job_Desc, Salary=:Salary, Benefits=:Benefits, "
+                "Hours_Worked=:Hours_Worked where (id=:id);");
   query.bindValue(":id",QVariant(id));
   query.bindValue(":CIN",QVariant(CIN));
   query.bindValue(":Job_Desc",QVariant(Job_Desc));
@@ -128,8 +128,9 @@ bool Posts::update_Posts()
 QSqlQueryModel *Posts::search(const QString& id)
 {
   QSqlQueryModel *m = new QSqlQueryModel;
-  QSqlQuery query("Select Posts where (id=?)");
-  query.addBindValue(id);
+  QSqlQuery query;
+  query.prepare("Select * from Posts where (id=:id);");
+  query.bindValue(":id", QVariant(id));
   m->setQuery(query);
   return m;
 }
@@ -138,12 +139,12 @@ QSqlQueryModel *Posts::display_Posts()
 {
 
   QSqlQueryModel *query=new QSqlQueryModel();
-  query->setQuery("Select * from Posts");
-  query->setHeaderData(0,Qt::Horizontal,"ID");
+  query->setQuery("Select * from Posts;");
+ /* query->setHeaderData(0,Qt::Horizontal,"ID");
   query->setHeaderData(1,Qt::Horizontal,"CIN");
-  query->setHeaderData(2,Qt::Horizontal,"Salary");
-  query->setHeaderData(3,Qt::Horizontal,"Benefits");
-  query->setHeaderData(4,Qt::Horizontal,"Hours_worked");
-  query->setHeaderData(5,Qt::Horizontal,"Job_Description");
+  query->setHeaderData(2,Qt::Horizontal,"Job_Description");
+  query->setHeaderData(3,Qt::Horizontal,"Salary");
+  query->setHeaderData(4,Qt::Horizontal,"Benefits");
+  query->setHeaderData(5,Qt::Horizontal,"Hours_worked");*/
   return query;
 }

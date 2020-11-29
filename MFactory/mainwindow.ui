@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1140</width>
-    <height>612</height>
+    <width>1192</width>
+    <height>641</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -44,9 +44,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>1131</width>
-      <height>571</height>
+      <y>20</y>
+      <width>1191</width>
+      <height>631</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -149,55 +149,6 @@
       <property name="text">
        <string>Status : not conncected </string>
       </property>
-     </widget>
-     <widget class="QPushButton" name="DeleteEmployee_button">
-      <property name="geometry">
-       <rect>
-        <x>870</x>
-        <y>430</y>
-        <width>80</width>
-        <height>37</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Ok</string>
-      </property>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="geometry">
-       <rect>
-        <x>770</x>
-        <y>60</y>
-        <width>331</width>
-        <height>361</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Delete Employee</string>
-      </property>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>160</y>
-         <width>81</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>CIN</string>
-       </property>
-      </widget>
-      <widget class="QTextEdit" name="CIN_Del_Text">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>160</y>
-         <width>201</width>
-         <height>41</height>
-        </rect>
-       </property>
-      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="Employees">
@@ -702,49 +653,14 @@ QPushButton:pressed{
        <string>Email</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="UpdateEmployee">
-      <property name="geometry">
-       <rect>
-        <x>110</x>
-        <y>70</y>
-        <width>41</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border: rgb(0,0,0,0)</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QPushButton" name="DeleteEmployee">
       <property name="geometry">
        <rect>
-        <x>60</x>
+        <x>20</x>
         <y>70</y>
         <width>41</width>
         <height>41</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border: rgb(0,0,0,0)</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="AddEmployee">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>70</y>
-        <width>41</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="statusTip">
-       <string comment="Add Employee" extracomment="Add Employee"/>
       </property>
       <property name="styleSheet">
        <string notr="true">border: rgb(0,0,0,0)</string>
@@ -951,39 +867,7 @@ QPushButton:pressed{
      <widget class="QPushButton" name="DeletePosts">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>40</y>
-        <width>41</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border: rgb(0,0,0,0)</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="UpdatePosts">
-      <property name="geometry">
-       <rect>
-        <x>110</x>
-        <y>40</y>
-        <width>41</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border: rgb(0,0,0,0)</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="AddPosts">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
+        <x>20</x>
         <y>40</y>
         <width>41</width>
         <height>41</height>
@@ -1014,7 +898,7 @@ QPushButton:pressed{
        <rect>
         <x>470</x>
         <y>40</y>
-        <width>241</width>
+        <width>301</width>
         <height>41</height>
        </rect>
       </property>
@@ -1038,12 +922,173 @@ QPushButton:pressed{
        </rect>
       </property>
      </widget>
-     <zorder>UpdatePosts</zorder>
-     <zorder>DeletePosts</zorder>
-     <zorder>AddPosts</zorder>
-     <zorder>label</zorder>
-     <zorder>Search_line</zorder>
-     <zorder>tableViewPost</zorder>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>850</x>
+        <y>480</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>OK</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>110</y>
+        <width>441</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Add | Update Employee</string>
+      </property>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>310</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Hours Workd</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>160</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Salary</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>210</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Benefits</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_16">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>260</y>
+         <width>121</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Job Description</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="Job_Posts_text">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>250</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="CIN_Posts_text">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>100</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="Salary_POsts_text">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>150</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="ID_Posts_text">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>50</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="Benefits_Posts_text">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>200</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_17">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>CIN</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="Hours_Posts_text_2">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>300</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -1057,7 +1102,7 @@ QPushButton:pressed{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1140</width>
+     <width>1192</width>
      <height>23</height>
     </rect>
    </property>

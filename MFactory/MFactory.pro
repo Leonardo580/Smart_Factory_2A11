@@ -22,6 +22,7 @@ CONFIG -=app_bundle
 
 SOURCES += \
     addemployee.cpp \
+    email.cpp \
     employees.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 
 HEADERS += \
     addemployee.h \
+    email.h \
     employees.h \
     mainwindow.h \
     posts.h \
@@ -37,6 +39,7 @@ HEADERS += \
 
 FORMS += \
     addemployee.ui \
+    email.ui \
     mainwindow.ui \
     search.ui
 
