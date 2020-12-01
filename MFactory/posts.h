@@ -33,6 +33,7 @@ public:
   bool remove_Posts(int id);
   bool remove_Posts();
   bool update_Posts();
+  bool search_post(int id);
   QSqlQueryModel * search(const QString& id);
   QSqlQueryModel * display_Posts();
 };

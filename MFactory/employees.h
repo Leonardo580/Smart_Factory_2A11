@@ -4,6 +4,8 @@
 #include <QtSql/QSqlQuery>
 #include <QString >
 #include <QSqlQueryModel>
+#include <QDebug>
+#include "email.h"
 class Employees
 {
   QString CIN, Full_Name, Address, Email ;
@@ -32,8 +34,8 @@ public:
   bool search_Employee(QString cin);
   QSqlQueryModel * display_Employee() ;
   QSqlQueryModel* sort_employees(int index);
-
- // ~Employees();
+  void SendEmail(class Email e);
+  ~Employees(){};
 };
 
 #endif // EMPLOYEES_H

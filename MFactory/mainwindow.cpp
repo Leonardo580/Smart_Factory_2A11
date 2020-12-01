@@ -64,17 +64,20 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::animation_button(QPushButton *b)
 {
-  int a=-20;
+  int a=20;
+  QRect location=b->geometry();
     {
       QPropertyAnimation *p = new QPropertyAnimation(b, "geometry");
-      p->setDuration(500);
-      p->setStartValue(b->geometry());
-      // a*=-1;
-      p->setEndValue(QRect(b->geometry().x()-a, b->geometry().y(), b->width(), b->height()));
-      p->setLoopCount(3);
+      p->setDuration(1000);
+      //p->setStartValue(QRect(b->geometry().x()+a, b->geometry().y(), b->width(), b->height()));
+     // p->setEndValue(QRect(b->geometry().x()-a, b->geometry().y(), b->width(), b->height()));
+      p->setKeyValueAt(0, location);
+      p->setKeyValueAt(0.25, QRect(b->geometry().x()+a, b->geometry().y(), b->width(), b->height()));
+      p->setKeyValueAt(0.5, QRect(location.x()-a, b->geometry().y(), b->width(), b->height()));
+      p->setKeyValueAt(0.75, QRect(location.x()+a, b->geometry().y(), b->width(), b->height()));
+      p->setKeyValueAt(1, location);
       p->start();
-      p->deleteLater();
-
+      //b->setGeometry(location);
     }
 
 }
@@ -104,7 +107,16 @@ void MainWindow::on_search_clicked()
 void MainWindow::on_DeleteEmployee_clicked()
 {
   QString cin=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),0).data().toString();
-  if (QMessageBox::warning(this, "Warning", "Are you sure you want to delete", QMessageBox::Ok|QMessageBox::Cancel)==0)
+  QSqlQuery q;
+  q.prepare("select * from posts where (cin=?);");
+  q.addBindValue(QVariant(cin));
+  q.exec();
+  q.first();
+  if (q.value(0).toString()!="") {
+      QMessageBox::warning(this, "warning", "this row has foreign key tied to it");
+      return;
+    }
+  else if (QMessageBox::question(this, "Warning", "Are you sure you want to delete")==QMessageBox::Yes)
     em.remove_employee(cin);
  ui->tableView_2->setModel(em.display_Employee());
 }
@@ -147,26 +159,36 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
   if (index!=3) return;
   QPieSeries *series= new QPieSeries();
   QSqlQuery query;
-  query.prepare("select Age from Employees;");
+  query.prepare("select CIN, Hours_worked from Posts;");
   QVector<int> v;
+  QVector<QString> vectcin, vectname;
   if(query.exec()){
       while(query.next()){
-      v.push_back(query.value(0).toInt());
+      vectcin.push_back(query.value(0).toString());
+      v.push_back(query.value(1).toInt());
         }
-  int twenty=0, thirty=0, forty=0;
-  for (QVector<int>::const_iterator it=v.begin(); it!=v.end();it++){
-      if (*it>=40) forty++;
-      else if (*it>=30) thirty++;
-      else twenty++;
+  for (QVector<QString>::iterator it=vectcin.begin(); it!=vectcin.end();it++){
+      QSqlQuery query2;
+      query2.prepare("Select Full_Name from Employees where (CIN=:cin);");
+      query2.bindValue(":cin", QVariant(*it));
+      query2.exec();
+      query2.first();
+      vectname.push_back(query2.value(0).toString());
     }
-  int all=twenty+thirty+forty;
-  qDebug()  << float(twenty/all)*100 << " " << (thirty/all)*100 << " "<< (forty/all)*100 << "\n";
-  series->append("Above 20", (qreal)((qreal)twenty/(qreal)all)*100.0);
-  series->append("Above 30",(qreal)((qreal)thirty/(qreal)all)*100);
-  series->append("Above 40",(qreal)((qreal)forty/(qreal)all)*100);
+
+   int sum=0;
+   for (int i=0;i<v.size();i++) sum+=v[i];
+   int m=0,pos;
+   for (int i=0;i<vectname.size();i++){
+  series->append(vectname[i], (qreal)((qreal)v[i]/(qreal)sum)*100.0);
+  if (m<v[i]){
+    m=v[i];
+    pos=i;
+    }
+     }
   //for (int i=0;i<3;i++)
     {
-      QPieSlice *s=series->slices().at(0);
+      QPieSlice *s=series->slices().at(pos);
       //if (s->event(new QEvent(QEvent::MouseButtonPress)))
         {
           s->setLabelVisible();
@@ -180,12 +202,13 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
     }
   QChart *ch= new QChart();
   ch->addSeries(series);
-  ch->setTitle(QString("Age"));
+  ch->setTitle(QString("Employee of the month"));
   ch->legend()->show();
   ch->setAnimationOptions(QChart::AllAnimations);
   ch->setTheme(QChart::ChartThemeDark);
   QChartView *chart=new QChartView(ch);
   chart->setRenderHint(QPainter::Antialiasing);
+  chart->setFont(QFont("Times",20,QFont::Bold));
   chart->setGeometry(ui->tab_2->geometry());
   chart->setBackgroundBrush(QBrush(QColor(0x202020)));
   QGridLayout q;
@@ -198,6 +221,7 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
 
 void MainWindow::on_tableView_2_activated(const QModelIndex &index)
 {
+
     QString cin=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),0).data().toString();
     QString name=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),1).data().toString();
     QString age=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),2).data().toString();
@@ -223,11 +247,11 @@ void MainWindow::on_pushButton_clicked()
   QRegExp regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
   regex.setPatternSyntax(QRegExp::RegExp);
   bool areEmpty=e.getAddress().isEmpty() || e.getEmail().isEmpty() || e.getCin().isEmpty() || e.getCin().size()<8;
-  if (areEmpty || !regex.exactMatch(e.getEmail()) || e.getAge()>=100){
+  if (areEmpty || !regex.exactMatch(e.getEmail()) || e.getAge()>=100 ){
       animation_button(ui->pushButton);
 
     }
-  else if (!ui->tableView_2->currentIndex().isValid()){
+  else if (!ui->tableView_2->currentIndex().isValid() || !em.search_Employee(e.getCin())){
       (ui->CIN_Employee_text->setText(""));
       ui->Name_Employee_text->setText("");
       ui->Age_Employee_text->setText("");
@@ -256,10 +280,10 @@ void MainWindow::on_comboBox_activated(int index)
 
 void MainWindow::on_DeletePosts_clicked()
 {
-  int id=ui->tableViewPost->model()->index(ui->tableView_2->currentIndex().row(),0).data().toInt();
-  if (QMessageBox::warning(this, "Warning", "Are you sure you want to delete", QMessageBox::Ok|QMessageBox::Cancel)==0)
+  int id=ui->tableViewPost->model()->index(ui->tableViewPost->currentIndex().row(),0).data().toInt();
+  if (QMessageBox::question(this, "Warning", "Are you sure you want to delete ?")==QMessageBox::Yes)
     po.remove_Posts(id);
- ui->tableView_2->setModel(em.display_Employee());
+ ui->tableViewPost->setModel(po.display_Posts());
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -273,11 +297,11 @@ void MainWindow::on_pushButton_3_clicked()
   p.setJob_Desc(ui->Job_Posts_text->text());
   p.setHours_Worked(ui->Hours_Posts_text_2->text().toDouble());
   bool areEmpty=p.getid()<0 || p.getCIN()=="";
-  if (areEmpty){
+  if (areEmpty || !em.search_Employee(p.getCIN())){
       animation_button(ui->pushButton_3);
 
     }
-  else if (!ui->tableViewPost->currentIndex().isValid()){
+  else if (!ui->tableViewPost->currentIndex().isValid() || !po.search_post(p.getid())){
      ui->ID_Posts_text->setText("");
      ui->CIN_Posts_text->setText("");
      ui->Salary_POsts_text->setText("");
@@ -307,15 +331,15 @@ void MainWindow::on_tableViewPost_activated(const QModelIndex &index)
     ui->Benefits_Posts_text->setText(data[3]);
     ui->Hours_Posts_text_2->setText(data[4]);
     ui->Job_Posts_text->setText(data[5]);
-    qDebug()<< index;
 
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     QString to=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),4).data().toString();
-    qDebug() << to;
+    //Email e("smtp.gmail.com",465, "anasbenbrahim9@gmail.com","2217351525131644", to, this);
     Email e("smtp.gmail.com",465, "anas.benbrahim@esprit.tn","191JMT4743", to, this);
     e.show();
     e.exec();
+
 }

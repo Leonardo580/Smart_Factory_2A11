@@ -55,8 +55,11 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -606,6 +609,9 @@
         </disabled>
        </palette>
       </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -641,6 +647,9 @@
         <weight>75</weight>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">
@@ -691,6 +700,9 @@ QPushButton:pressed{
         <height>41</height>
        </rect>
       </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
       <item>
        <property name="text">
         <string/>
@@ -720,6 +732,9 @@ QPushButton:pressed{
         <width>381</width>
         <height>341</height>
        </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
       </property>
       <property name="title">
        <string>Add | Update Employee</string>
@@ -849,6 +864,9 @@ QPushButton:pressed{
         <height>41</height>
        </rect>
       </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -948,7 +966,7 @@ QPushButton:pressed{
        </rect>
       </property>
       <property name="title">
-       <string>Add | Update Employee</string>
+       <string>Add | Update Posts</string>
       </property>
       <widget class="QLabel" name="label_12">
        <property name="geometry">

@@ -98,7 +98,7 @@ bool Posts::remove_Posts(int id)
 {
   QSqlQuery query;
   query.prepare("Delete from Posts where (id=:id);");
-  query.bindValue(":id",QVariant(id));
+  query.bindValue(":id",QVariant(QString::number(id)));
   return query.exec();
 }
 
@@ -125,13 +125,30 @@ bool Posts::update_Posts()
 
 }
 
+bool Posts::search_post(int id)
+{
+  QSqlQuery query;
+  query.prepare("select * from Posts where (id=:id);");
+  query.bindValue(":cin", QVariant(QString::number(id)));
+  query.exec();
+  query.first();
+  return query.value(0).toString()==id;
+}
+
 QSqlQueryModel *Posts::search(const QString& id)
 {
-  QSqlQueryModel *m = new QSqlQueryModel;
+  QSqlQueryModel *m = new QSqlQueryModel();
   QSqlQuery query;
   query.prepare("Select * from Posts where (id=:id);");
   query.bindValue(":id", QVariant(id));
+  query.exec();
   m->setQuery(query);
+  m->setHeaderData(0,Qt::Horizontal,"ID");
+  m->setHeaderData(1,Qt::Horizontal,"CIN");
+  m->setHeaderData(2,Qt::Horizontal,"Job_Description");
+  m->setHeaderData(3,Qt::Horizontal,"Salary");
+  m->setHeaderData(4,Qt::Horizontal,"Benefits");
+  m->setHeaderData(5,Qt::Horizontal,"Hours_worked");
   return m;
 }
 
@@ -140,11 +157,11 @@ QSqlQueryModel *Posts::display_Posts()
 
   QSqlQueryModel *query=new QSqlQueryModel();
   query->setQuery("Select * from Posts;");
- /* query->setHeaderData(0,Qt::Horizontal,"ID");
+  query->setHeaderData(0,Qt::Horizontal,"ID");
   query->setHeaderData(1,Qt::Horizontal,"CIN");
   query->setHeaderData(2,Qt::Horizontal,"Job_Description");
   query->setHeaderData(3,Qt::Horizontal,"Salary");
   query->setHeaderData(4,Qt::Horizontal,"Benefits");
-  query->setHeaderData(5,Qt::Horizontal,"Hours_worked");*/
+  query->setHeaderData(5,Qt::Horizontal,"Hours_worked");
   return query;
 }

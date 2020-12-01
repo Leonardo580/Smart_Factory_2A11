@@ -81,8 +81,8 @@ bool Employees::remove_employee(QString cin)
 bool Employees::remove_employee()
 {
   QSqlQuery query;
-  query.prepare("Delete from Employees where (CIN=:cin) ;");
-  query.bindValue(":cin",QVariant(getCin()));
+  query.prepare("Delete from Employees where (CIN=:cin);");
+  query.bindValue(":cin",QVariant(CIN));
   return query.exec();
 }
 
@@ -103,9 +103,11 @@ bool Employees::update_employee()
 bool Employees::search_Employee(QString cin)
 {
   QSqlQuery query;
-  query.prepare("select CIN from Employees where (CIN=:cin);");
+  query.prepare("select * from Employees where (CIN=:cin);");
   query.bindValue(":cin", QVariant(cin));
-  return query.exec();
+  query.exec();
+  query.first();
+  return query.value(0).toString()==cin;
 
 }
 
@@ -126,6 +128,11 @@ QSqlQueryModel * Employees::display_Employee()
 QSqlQueryModel *Employees::sort_employees(int index)
 {
   QSqlQueryModel *model = new QSqlQueryModel;
+  model->setHeaderData(0,Qt::Horizontal,QObject::tr("CIN"));
+  model->setHeaderData(1,Qt::Horizontal,"Full Name");
+  model->setHeaderData(2,Qt::Horizontal,"Age");
+  model->setHeaderData(3,Qt::Horizontal,"Address");
+  model->setHeaderData(4,Qt::Horizontal,"Email");
 
     switch (index) {
       case 0:
@@ -143,6 +150,12 @@ QSqlQueryModel *Employees::sort_employees(int index)
       }
     return model;
 
+}
+
+void Employees::SendEmail(class Email e)
+{
+  e.show();
+  e.exec();
 }
 
 
