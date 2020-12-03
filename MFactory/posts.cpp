@@ -129,17 +129,17 @@ bool Posts::search_post(int id)
 {
   QSqlQuery query;
   query.prepare("select * from Posts where (id=:id);");
-  query.bindValue(":cin", QVariant(QString::number(id)));
+  query.bindValue(":id", QVariant(QString::number(id)));
   query.exec();
   query.first();
-  return query.value(0).toString()==id;
+  return query.value(0).toInt()==id;
 }
 
 QSqlQueryModel *Posts::search(const QString& id)
 {
   QSqlQueryModel *m = new QSqlQueryModel();
   QSqlQuery query;
-  query.prepare("Select * from Posts where (id=:id);");
+  query.prepare("Select * from Posts where (id like :id||'%');");
   query.bindValue(":id", QVariant(id));
   query.exec();
   m->setQuery(query);

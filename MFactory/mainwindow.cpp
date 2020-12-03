@@ -112,6 +112,7 @@ void MainWindow::on_DeleteEmployee_clicked()
   q.addBindValue(QVariant(cin));
   q.exec();
   q.first();
+  if (cin.isEmpty()) return;
   if (q.value(0).toString()!="") {
       QMessageBox::warning(this, "warning", "this row has foreign key tied to it");
       return;
@@ -210,7 +211,6 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
   chart->setRenderHint(QPainter::Antialiasing);
   chart->setFont(QFont("Times",20,QFont::Bold));
   chart->setGeometry(ui->tab_2->geometry());
-  chart->setBackgroundBrush(QBrush(QColor(0x202020)));
   QGridLayout q;
   q.addWidget(chart);
   this->ui->tab_2->setLayout(&q);
@@ -247,11 +247,11 @@ void MainWindow::on_pushButton_clicked()
   QRegExp regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
   regex.setPatternSyntax(QRegExp::RegExp);
   bool areEmpty=e.getAddress().isEmpty() || e.getEmail().isEmpty() || e.getCin().isEmpty() || e.getCin().size()<8;
-  if (areEmpty || !regex.exactMatch(e.getEmail()) || e.getAge()>=100 ){
+  if (areEmpty || !regex.exactMatch(e.getEmail()) ||e.getAge()>=100 ){
       animation_button(ui->pushButton);
 
     }
-  else if (!ui->tableView_2->currentIndex().isValid() || !em.search_Employee(e.getCin())){
+  else if (!em.search_Employee(e.getCin())){
       (ui->CIN_Employee_text->setText(""));
       ui->Name_Employee_text->setText("");
       ui->Age_Employee_text->setText("");
@@ -280,7 +280,9 @@ void MainWindow::on_comboBox_activated(int index)
 
 void MainWindow::on_DeletePosts_clicked()
 {
-  int id=ui->tableViewPost->model()->index(ui->tableViewPost->currentIndex().row(),0).data().toInt();
+  QString tmp=ui->tableViewPost->model()->index(ui->tableViewPost->currentIndex().row(),0).data().toString();
+  if (tmp.isEmpty()) return;
+  int id=tmp.toInt();
   if (QMessageBox::question(this, "Warning", "Are you sure you want to delete ?")==QMessageBox::Yes)
     po.remove_Posts(id);
  ui->tableViewPost->setModel(po.display_Posts());
@@ -299,9 +301,8 @@ void MainWindow::on_pushButton_3_clicked()
   bool areEmpty=p.getid()<0 || p.getCIN()=="";
   if (areEmpty || !em.search_Employee(p.getCIN())){
       animation_button(ui->pushButton_3);
-
     }
-  else if (!ui->tableViewPost->currentIndex().isValid() || !po.search_post(p.getid())){
+  else if (!po.search_post(p.getid())){
      ui->ID_Posts_text->setText("");
      ui->CIN_Posts_text->setText("");
      ui->Salary_POsts_text->setText("");
@@ -318,6 +319,7 @@ void MainWindow::on_pushButton_3_clicked()
     }
 
   ui->tableViewPost->setModel(po.display_Posts());
+
 }
 
 void MainWindow::on_tableViewPost_activated(const QModelIndex &index)
@@ -327,10 +329,10 @@ void MainWindow::on_tableViewPost_activated(const QModelIndex &index)
       data[i]=ui->tableViewPost->model()->index(ui->tableViewPost->currentIndex().row(),i).data().toString();
     ui->ID_Posts_text->setText(data[0]);
     ui->CIN_Posts_text->setText(data[1]);
-    ui->Salary_POsts_text->setText(data[2]);
-    ui->Benefits_Posts_text->setText(data[3]);
-    ui->Hours_Posts_text_2->setText(data[4]);
-    ui->Job_Posts_text->setText(data[5]);
+    ui->Job_Posts_text->setText(data[2]);
+    ui->Salary_POsts_text->setText(data[3]);
+    ui->Benefits_Posts_text->setText(data[4]);
+    ui->Hours_Posts_text_2->setText(data[5]);
 
 }
 

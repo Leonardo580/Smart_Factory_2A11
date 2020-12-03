@@ -1,6 +1,6 @@
 QT       += core gui charts
-QT       +=sql
-QT       +=serialport
+QT       += sql
+QT       += serialport
 QT       += multimedia
 QT       += core network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

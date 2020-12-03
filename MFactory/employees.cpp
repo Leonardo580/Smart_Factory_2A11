@@ -148,6 +148,11 @@ QSqlQueryModel *Employees::sort_employees(int index)
          model->setQuery("select * from Employees order by Age ASC;");
         break;
       }
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("CIN"));
+    model->setHeaderData(1,Qt::Horizontal,"Full Name");
+    model->setHeaderData(2,Qt::Horizontal,"Age");
+    model->setHeaderData(3,Qt::Horizontal,"Address");
+    model->setHeaderData(4,Qt::Horizontal,"Email");
     return model;
 
 }
