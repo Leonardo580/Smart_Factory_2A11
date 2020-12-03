@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1038</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">border-image: url(:/image/pro.jpg);</string>
+  </property>
+  <widget class="QLabel" name="label_24">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>99</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;
+border-image: url(:/image/b.png);</string>
+   </property>
+   <property name="text">
+    <string>E-mail  :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_25">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>209</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/image/b.png);
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+   </property>
+   <property name="text">
+    <string>MESSAGE</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_26">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>149</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;
+border-image: url(:/image/b.png);</string>
+   </property>
+   <property name="text">
+    <string>Object</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_mail">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>101</y>
+     <width>531</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/image/b.png);</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="le_object">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>151</y>
+     <width>531</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/image/b.png);</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="envoyeymail">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>490</y>
+     <width>181</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;
+
+border-image: url(:/image/b.png);</string>
+   </property>
+   <property name="text">
+    <string>ENVOYER MAIL</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="le_msgmail">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>210</y>
+     <width>531</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/image/b.png);</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
