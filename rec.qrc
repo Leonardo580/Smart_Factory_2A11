@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/new/prefix1"/>
+    <qresource prefix="/">
+        <file>image/a.jpg</file>
+        <file>image/ajouter.png</file>
+        <file>image/b.png</file>
+        <file>image/bb.png</file>
+        <file>image/i.png</file>
+        <file>image/ss.png</file>
+        <file>image/supprimer.png</file>
+        <file>image/téléchargement.png</file>
+        <file>image/publ.html</file>
+        <file>image/im.jpg</file>
+        <file>image/m.png</file>
+        <file>image/pro.jpg</file>
+        <file>image/blue0517.jpg</file>
+        <file>image/pnghut_email-icon-technology-vector-envelope_xEsmdaTzcj.png</file>
+        <file>image/51637.png</file>
+    </qresource>
+</RCC>

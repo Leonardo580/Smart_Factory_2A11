@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/C:\Users\azizf\Documents\interface_publicite">
+        <file>ss.png</file>
+        <file>supprimer.png</file>
+        <file>téléchargement.png</file>
+        <file>a.jpg</file>
+        <file>ajouter.png</file>
+        <file>b.png</file>
+        <file>bb.png</file>
+        <file>i.png</file>
+        <file>image/i.png</file>
+    </qresource>
+</RCC>
