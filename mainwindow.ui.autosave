@@ -241,7 +241,7 @@ border-radius:20px;
               </font>
              </property>
              <property name="text">
-              <string>     Numero:</string>
+              <string>          Adresse:</string>
              </property>
             </widget>
            </item>
@@ -286,7 +286,7 @@ border-radius:20px;
               </font>
              </property>
              <property name="text">
-              <string>      Adresse:</string>
+              <string>         Numero:</string>
              </property>
             </widget>
            </item>

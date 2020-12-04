@@ -84,9 +84,9 @@ else QMessageBox::critical(nullptr,QObject::tr("not OK"),QObject::tr("Ajout non 
     bool test=ctmp.supprimer(CIN);
     if(test)
     {ui->tableView->setModel(ctmp.afficher());
-        QMessageBox::information(nullptr,QObject::tr("ok"),
+      /*  QMessageBox::information(nullptr,QObject::tr("ok"),
                                  QObject::tr("Suppression effectue\n click cancel to exit"),QMessageBox::Cancel);
-        ui->lineEdit_cind->clear();
+       */ ui->lineEdit_cind->clear();
     }
     else QMessageBox::critical(nullptr,QObject::tr("ok"),
                                   QObject::tr("Suppression non effectue\n click cancel to exit"),QMessageBox::Cancel);
@@ -197,7 +197,7 @@ void MainWindow::on_pushButton_5_clicked()
     QString CIN=ui->lineEdit_3->text();
      QString adresse=ui->lineEdit_4->text();
      QString numero=ui->lineEdit_5->text();
-     ui->listView3->setModel(ctmp.rechercher_3(CIN,numero,adresse));
+     ui->listView3->setModel(ctmp.rechercher_3(CIN,adresse,numero));
 
                    ui->listView3->show();
 }

@@ -4,11 +4,9 @@
 
 int main(int argc, char *argv[])
 {
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.setWindowIcon(QIcon("C:\\Users\\Anas\\OneDrive\\Workload\\Project 2\\logo.JPG"));
-  w.setFont(QFont("Agency FB"));
-  w.show();
-
-  return a.exec();
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.setWindowIcon(QIcon(":/images/126042835_198489595235184_1959348384574746721_n.jpg"));
+    w.show();
+    return a.exec();
 }
