@@ -36,7 +36,6 @@ public:
   void Stat();
   void animation_button(QPushButton* b);
   ~MainWindow();
-
 private slots:
 
   //void on_addnew_clicked();
@@ -71,6 +70,10 @@ private slots:
 
   void on_pushButton_2_clicked();
 
+  void on_pushButton_4_clicked();
+
+  void on_pushButton_5_clicked();
+
 private:
   Ui::MainWindow *ui;
   QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
@@ -78,5 +81,6 @@ private:
   QSound *sound= new QSound(QString("://button1.wav"));
   Employees em;
   Posts po;
+
 };
 #endif // MAINWINDOW_H

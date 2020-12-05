@@ -628,10 +628,10 @@
      <widget class="QPushButton" name="pushButton_2">
       <property name="geometry">
        <rect>
-        <x>730</x>
-        <y>70</y>
-        <width>121</width>
-        <height>31</height>
+        <x>190</x>
+        <y>60</y>
+        <width>131</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -666,7 +666,7 @@ QPushButton:pressed{
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>70</y>
+        <y>60</y>
         <width>41</width>
         <height>41</height>
        </rect>
@@ -872,6 +872,19 @@ QPushButton:pressed{
       </property>
       <property name="text">
        <string>OK</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>1040</x>
+        <y>40</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear</string>
       </property>
      </widget>
     </widget>
@@ -1106,6 +1119,19 @@ QPushButton:pressed{
         </rect>
        </property>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>1040</x>
+        <y>40</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">

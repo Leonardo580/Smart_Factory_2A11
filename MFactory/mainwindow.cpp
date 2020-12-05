@@ -339,9 +339,31 @@ void MainWindow::on_tableViewPost_activated(const QModelIndex &index)
 void MainWindow::on_pushButton_2_clicked()
 {
     QString to=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),4).data().toString();
-    //Email e("smtp.gmail.com",465, "anasbenbrahim9@gmail.com","2217351525131644", to, this);
-    Email e("smtp.gmail.com",465, "anas.benbrahim@esprit.tn","191JMT4743", to, this);
+
     e.show();
     e.exec();
 
 }
+
+void MainWindow::on_pushButton_4_clicked()
+{
+  sound->play();
+  ui->ID_Posts_text->setText("");
+  ui->CIN_Posts_text->setText("");
+  ui->Salary_POsts_text->setText("");
+  ui->Benefits_Posts_text->setText("");
+  ui->Job_Posts_text->setText("");
+  ui->Hours_Posts_text_2->setText("");
+
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+  sound->play();
+  (ui->CIN_Employee_text->setText(""));
+  ui->Name_Employee_text->setText("");
+  ui->Age_Employee_text->setText("");
+  ui->Address_Employee_text->setText("");
+  (ui->Email_Employee_text->setText(""));
+}
+
