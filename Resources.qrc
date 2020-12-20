@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/edit.png</file>
+        <file>Resources/minus.png</file>
+        <file>Resources/plus.png</file>
+        <file>Resources/search.png</file>
+        <file>Resources/logo.JPG</file>
+        <file>button1.wav</file>
+        <file>Resources/aqua.qss</file>
+        <file>Resources/ajouter.png</file>
+        <file>Resources/i.png</file>
+        <file>Resources/bb.png</file>
+        <file>Resources/ss.png</file>
+        <file>Resources/supprimer.png</file>
+        <file>Resources/téléchargement.png</file>
+    </qresource>
+</RCC>
