@@ -6,7 +6,7 @@ login::login(QWidget *parent) :
   ui(new Ui::login)
 {
   ui->setupUi(this);
-  QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
+  /*QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
 
   db.setDatabaseName(QString("Source_Projet2A"));
   db.setUserName("Anas");
@@ -16,7 +16,7 @@ login::login(QWidget *parent) :
     }
   else {
   ui->label_7->setText("Status: Connected");
-    }
+    }*/
 }
 
 bool login::log()
@@ -36,8 +36,8 @@ login::~login()
 
 void login::on_DeleteEmployee_button_2_clicked()
 {
-  HR *h = new HR;
-  this->hide();
-  h->show();
+  //HR *h = new HR;
+ // this->hide();
+  //h->show();
 }
 

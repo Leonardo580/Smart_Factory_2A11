@@ -164,11 +164,11 @@ QSqlQueryModel *Employees::sort_employees(int index)
 
 }
 
-void Employees::SendEmail(class Email e)
+/*void Employees::SendEmail(class Email e)
 {
   e.show();
   e.exec();
 }
 
-
+*/
 

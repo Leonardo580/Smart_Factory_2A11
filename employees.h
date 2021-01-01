@@ -35,7 +35,7 @@ public:
   bool search_Employee(QString cin);
   QSqlQueryModel * display_Employee() ;
   QSqlQueryModel* sort_employees(int index);
-  void SendEmail(class Email e);
+  //void SendEmail(class Email e);
   ~Employees(){};
 };
 

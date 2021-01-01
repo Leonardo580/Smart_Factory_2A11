@@ -1,17 +1,27 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/new/prefix1">
+        <file>Resources/ajouter.png</file>
+        <file>Resources/aqua.qss</file>
+        <file>Resources/bb.png</file>
         <file>Resources/edit.png</file>
+        <file>Resources/i.png</file>
+        <file>Resources/logo.JPG</file>
         <file>Resources/minus.png</file>
         <file>Resources/plus.png</file>
         <file>Resources/search.png</file>
-        <file>Resources/logo.JPG</file>
-        <file>button1.wav</file>
-        <file>Resources/aqua.qss</file>
-        <file>Resources/ajouter.png</file>
-        <file>Resources/i.png</file>
-        <file>Resources/bb.png</file>
         <file>Resources/ss.png</file>
         <file>Resources/supprimer.png</file>
         <file>Resources/téléchargement.png</file>
+        <file>Resources/style1.qss</file>
+        <file>Resources/aziz/a.jpg</file>
+        <file>Resources/aziz/ajouter.png</file>
+        <file>Resources/aziz/b.png</file>
+        <file>Resources/aziz/bb.png</file>
+        <file>Resources/aziz/i.png</file>
+        <file>Resources/aziz/ss.png</file>
+        <file>Resources/aziz/supprimer.png</file>
+        <file>Resources/aziz/téléchargement.png</file>
+        <file>french.qm</file>
+        <file>Resources/button1.wav</file>
     </qresource>
 </RCC>
