@@ -29,12 +29,35 @@
 #include <QFontDialog>
 #include <QTranslator>
 #include <QNetworkConfigurationManager>
+#include <QRadioButton>
+#include<QtPrintSupport/QPrinter>
+#include<QPdfWriter>
+#include <QPainter>
+#include<QFileDialog>
+#include<QTextDocument>
+#include <QTextEdit>
+#include <QtSql/QSqlQueryModel>
+#include<QtPrintSupport/QPrinter>
+#include <QVector2D>
+#include <QVector>
+#include <QSqlQuery>
+#include<QDesktopServices>
+#include <QMessageBox>
+#include<QUrl>
+#include <QPixmap>
+#include <QTabWidget>
+#include <QValidator>
+#include <QPrintDialog>
+#include "QMediaPlayer"
+#include "QMediaPlaylist"
 #include "email.h"
 #include "QSound"
 #include "employees.h"
 #include "posts.h"
 #include "src/SmtpMime"
 #include "arduino.h"
+#include "Publicite.h"
+#include"Promo.h"
 QT_BEGIN_NAMESPACE
 QT_CHARTS_USE_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -48,7 +71,7 @@ public:
   MainWindow(QWidget *parent = nullptr);
   void Stat();
   void animation_button(QPushButton* b);
-
+   void click();
   ~MainWindow();
 private slots:
 
@@ -114,6 +137,27 @@ private slots:
 
   void on_actionReturn_to_main_triggered();
 
+
+  void on_pb_ajouter_clicked();
+
+      void on_pb_supprimer_clicked();
+
+      void on_pb_modifier_clicked();
+
+
+      void on_pr_ajouter_clicked();
+
+      void on_pr_supprimer_clicked();
+
+
+
+      void on_tri_1_activated(const QString &arg1);
+      void on_cher_cin_cursorPositionChanged(int arg1, int arg2);
+
+          void on_cher_cin_2_cursorPositionChanged(int arg1, int arg2);
+
+          void on_aziz_clicked();
+
 private:
   void on_comboBox_2_activated(int index=0);
    Ui::MainWindow *ui;
@@ -123,5 +167,9 @@ private:
    Employees em;
    Posts po;
    Arduino ar;
+   Publicite pub;
+   Promo pr;
+   QMediaPlaylist* music1;
+   QMediaPlayer* music;
 };
 #endif // MAINWINDOW_H
