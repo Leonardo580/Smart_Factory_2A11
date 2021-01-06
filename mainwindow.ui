@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="page">
      <layout class="QGridLayout" name="gridLayout_4">
@@ -131,6 +131,13 @@
           </item>
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QPushButton" name="pushButton_9">
+              <property name="text">
+               <string>Flase Alarm</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QPushButton" name="pushButton_2">
               <property name="minimumSize">
@@ -971,6 +978,13 @@ QPushButton:pressed{
           </item>
           <item row="0" column="1" colspan="2">
            <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="pushButton_10">
+              <property name="text">
+               <string>Play</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QLabel" name="label_6">
               <property name="text">

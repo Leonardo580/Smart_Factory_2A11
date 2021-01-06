@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
   , ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
+  this->setWindowIcon(QIcon(":/new/prefix1/Resources/logo.JPG"));
    QIcon deletes(":/Resources/minus.png");
    ui->DeleteEmployee->setIcon(deletes);
 
@@ -177,66 +178,66 @@ void MainWindow::on_Search_line_editingFinished()
 
 void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
-  if (index!=3) return;
-  QPieSeries *series= new QPieSeries();
-  QSqlQuery query;
-  query.prepare("select id ,Hours_worked from Posts;");
-  QVector<int> v;
-  QVector<QString> vectcin, vectname;
-  if(query.exec()){
+  if (index!=2) return;
+    QPieSeries *series= new QPieSeries(this);
+    QSqlQuery query;
+    query.prepare("select id ,Hours_worked from Posts;");
+    QVector<int> v,vectcin;
+    QVector<QString>  vectname;
+    if(query.exec()){
       while(query.next()){
-      vectcin.push_back(query.value(0).toString());
-      v.push_back(query.value(1).toInt());
-        }
-  for (QVector<QString>::iterator it=vectcin.begin(); it!=vectcin.end();it++){
-      QSqlQuery query2;
-      query2.prepare("Select Full_Name from Employees where (CIN=:cin);");
-      query2.bindValue(":cin", QVariant(*it));
-      query2.exec();
-      query2.first();
-      vectname.push_back(query2.value(0).toString());
-    }
+        vectcin.push_back(query.value(0).toInt());
+        v.push_back(query.value(1).toInt());
+          }
+    for (QVector<int>::iterator it=vectcin.begin(); it!=vectcin.end();it++){
+        QSqlQuery query2;
+        query2.prepare("Select Full_Name from Employees where (id=:id);");
+        query2.bindValue(":id", QVariant(QString::number(*it)));
+        query2.exec();
+        query2.first();
+        vectname.push_back(query2.value(0).toString());
+      }
 
-   int sum=0;
-   for (int i=0;i<v.size();i++) sum+=v[i];
-   int m=0,pos;
-   for (int i=0;i<vectname.size();i++){
-  series->append(vectname[i], (qreal)((qreal)v[i]/(qreal)sum)*100.0);
-  if (m<v[i]){
-    m=v[i];
-    pos=i;
-    }
-     }
-  //for (int i=0;i<3;i++)
-    {
-      QPieSlice *s=series->slices().at(pos);
-      //if (s->event(new QEvent(QEvent::MouseButtonPress)))
-        {
-          s->setLabelVisible();
-          s->setExploded();
-          s->setPen(QPen(Qt::darkBlue,2));
-        }
-      //else
+     int sum=0;
+     for (int i=0;i<v.size();i++) sum+=v[i];
+     int m=0,pos;
+     for (int i=0;i<vectname.size();i++){
+    series->append(vectname[i], (qreal)((qreal)v[i]/(qreal)sum)*100.0);
+    if (m<v[i]){
+      m=v[i];
+      pos=i;
+      }
+       }
+    //for (int i=0;i<3;i++)
       {
-         // s->setExploded(false);
-        }
-    }
-  QChart *ch= new QChart();
-  ch->addSeries(series);
-  ch->setTitle(QString("Employee of the month"));
-  ch->legend()->show();
-  ch->setAnimationOptions(QChart::AllAnimations);
-  ch->setTheme(QChart::ChartThemeDark);
-  QChartView *chart=new QChartView(ch);
-  chart->setRenderHint(QPainter::Antialiasing);
-  chart->setFont(QFont("Times",20,QFont::Bold));
-  chart->setGeometry(ui->tab_2->geometry());
-  QGridLayout q;
-  q.addWidget(chart);
-  this->ui->tab_2->setLayout(&q);
-    }
-  else
-    QMessageBox::warning(this,"Error","Unable to fetch values from the DataBase", QMessageBox::Ok);
+        QPieSlice *s=series->slices().at(pos);
+        //if (s->event(new QEvent(QEvent::MouseButtonPress)))
+          {
+            s->setLabelVisible();
+            s->setExploded();
+            s->setPen(QPen(Qt::darkBlue,2));
+          }
+        //else
+        {
+           // s->setExploded(false);
+          }
+      }
+    QChart *ch= new QChart();
+    ch->addSeries(series);
+    ch->setTitle(QString("Employee of the month"));
+    ch->legend()->show();
+    ch->setAnimationOptions(QChart::AllAnimations);
+    ch->setTheme(QChart::ChartThemeDark);
+    QChartView *chart=new QChartView(ch);
+    chart->setRenderHint(QPainter::Antialiasing);
+    chart->setFont(QFont("Times",20,QFont::Bold));
+    chart->setGeometry(ui->tab_2->geometry());
+    QGridLayout q;
+    q.addWidget(chart);
+    this->ui->tab_2->setLayout(&q);
+      }
+    else
+      QMessageBox::warning(this,tr("Error"),tr("Unable to fetch values from the DataBase"), QMessageBox::Ok);
 }
 
 void MainWindow::on_tableView_2_activated(const QModelIndex &index)
@@ -437,7 +438,7 @@ void MainWindow::on_comboBox_2_activated(int index)
 
 void MainWindow::on_pushButton_6_clicked()
 {
-  qDebug() << "dfghdghdh";
+
   QSqlQuery query;
   QString html="<div align=right>"
                "City, 11/11/2015"
@@ -447,10 +448,10 @@ void MainWindow::on_pushButton_6_clicked()
                "street 34/56A<br>"
                "121-43 city"
             "</div>"
-               "<img src=""Resources\\logo.JPG"" align=left>"
+               "<img src="":/new/prefix1/Resources/logo.JPG"" align=left>"
             "<h1 align=center>Employees Table</h1>"
             "<p align=justify style=""color:blue""><br/><br/>"
-               "<table style=""width:100%"">"
+               "<table style=""width:100%  border=1 cellspacing=0 cellpadding=2"">"
                "<tr>"
                "<th>       CIN       </th>"
                "<th>       Full Name </th>"
@@ -462,17 +463,17 @@ void MainWindow::on_pushButton_6_clicked()
 
   query.prepare("select * from employees;");
   query.exec();
-  query.first();
-  do {
+  while (query.next()) {
       html+="<tr>";
       for(int i=0;i<6;i++)
-      html+="<th>"+query.value(i).toString()+" "+"</th>";
+      html+="<td>"+query.value(i).toString()+" "+"</td>";
       html+="</tr>";
-    }while (!query.next());
+    }
   html+="</p>";
 
  QTextDocument doc;
   doc.setHtml(html);
+
   QPrinter printer(QPrinter::PrinterResolution);
   printer.setOutputFormat(QPrinter::PdfFormat);
   printer.setPageSize(QPrinter::A4);
@@ -496,7 +497,7 @@ void MainWindow::on_actionChoose_font_triggered()
 void MainWindow::on_pushButton_7_clicked()
 {
   QTranslator *t = new QTranslator;
-  t->load(":/french.qm");
+  t->load(":/new/prefix1/french.qm");
   //QApplication::instance()->removeTranslator(&mtranslator);
   //QApplication::instance()->installTranslator(&t);
   //QCoreApplication::installTranslator(t);
@@ -555,10 +556,10 @@ void MainWindow::sumPosts()
 
 
 
-void MainWindow::on_actionFalse_Alarm_triggered()
+/*void MainWindow::on_actionFalse_Alarm_triggered()
 {
     ar.write_to_arduino(QByteArray::fromStdString("2"));
-}
+}*/
 void MainWindow::click()
 {
 
@@ -851,4 +852,25 @@ void MainWindow::on_actionReturn_to_main_triggered()
 void MainWindow::on_aziz_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    ar.write_to_arduino(QByteArray::fromStdString("2"));
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    if (ui->pushButton_10->text()=="Play"){
+        QMediaPlaylist *playlist = new QMediaPlaylist();
+        playlist->addMedia(QUrl("qrc:/Mutimedia/Resources/My Dream - AShamaluevMusic.mp3"));
+        playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        mu->setPlaylist(playlist);
+        mu->play();
+        ui->pushButton_10->setText("Stop");
+      }
+    else {
+        mu->stop();
+        ui->pushButton_10->setText("Play");
+      }
 }

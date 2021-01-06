@@ -6,9 +6,9 @@ login::login(QWidget *parent) :
   ui(new Ui::login)
 {
   ui->setupUi(this);
-  /*QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
 
-  db.setDatabaseName(QString("Source_Projet2A"));
+
+  /*db.setDatabaseName(QString("Source_Projet2A"));
   db.setUserName("Anas");
   db.setPassword("esprit20");
   if(!db.open()) {
@@ -31,13 +31,13 @@ bool login::log()
 
 login::~login()
 {
+  //db.close();
   delete ui;
 }
 
 void login::on_DeleteEmployee_button_2_clicked()
 {
-  //HR *h = new HR;
- // this->hide();
-  //h->show();
+ /*if (log)
+ this->hide();*/
 }
 

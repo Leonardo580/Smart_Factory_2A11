@@ -131,7 +131,7 @@ private slots:
   void sumPosts();
 
 
-  void on_actionFalse_Alarm_triggered();
+ // void on_actionFalse_Alarm_triggered();
 
   void on_HR_clicked();
 
@@ -158,12 +158,17 @@ private slots:
 
           void on_aziz_clicked();
 
+          void on_pushButton_9_clicked();
+
+          void on_pushButton_10_clicked();
+
 private:
   void on_comboBox_2_activated(int index=0);
    Ui::MainWindow *ui;
    QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
    QSqlQueryModel *m=new QSqlQueryModel;
    QSound *sound= new QSound(QString(":/new/prefix1/Resources/button1.wav"));
+   QMediaPlayer *mu= new QMediaPlayer();
    Employees em;
    Posts po;
    Arduino ar;
