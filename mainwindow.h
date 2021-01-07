@@ -48,6 +48,7 @@
 #include <QTabWidget>
 #include <QValidator>
 #include <QPrintDialog>
+#include <QVideoWidget>
 #include "QMediaPlayer"
 #include "QMediaPlaylist"
 #include "email.h"
@@ -58,6 +59,12 @@
 #include "arduino.h"
 #include "Publicite.h"
 #include"Promo.h"
+#include "login.h"
+#include"entreprise.h"
+#include"notification.h"
+#include"contrat.h"
+#include "client.h"
+#include "commande.h"
 QT_BEGIN_NAMESPACE
 QT_CHARTS_USE_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -76,7 +83,7 @@ public:
 private slots:
 
   //void on_addnew_clicked();
-  void on_search_clicked();
+  //void on_search_clicked();
   void arduino_output();
 
 
@@ -158,9 +165,63 @@ private slots:
 
           void on_aziz_clicked();
 
+
           void on_pushButton_9_clicked();
 
           void on_pushButton_10_clicked();
+
+          void on_ajouter_ent_clicked();
+
+          void on_modifier_ent_clicked();
+
+          void on_supprimer_ent_clicked();
+
+          void on_matricule_ent_textChanged(const QString &arg1);
+
+          void on_tabWidget_currentChanged(int index);
+
+          void on_ajouter_contrat_clicked();
+
+          void on_supprimer_contrat_clicked();
+
+          void on_num_contrat_textChanged(const QString &arg1);
+
+          void on_modifier_contrat_clicked();
+
+          void on_recherche_contrat_textChanged(const QString &arg1);
+
+          void on_pdf_contrat_clicked();
+
+
+          void on_anas_clicked();
+
+
+
+          void on_ajouterclient_clicked();
+
+              void on_modifierclient_clicked();
+
+              void on_supprimerclient_clicked();
+
+              void on_pushButton_imp_clicked();
+
+              void on_pushButton_RC_clicked();
+
+              void on_ajoutercommande_clicked();
+
+              void on_modifiercommande_clicked();
+
+              void on_supprimercommande_clicked();
+
+              void on_tabstats_tabBarClicked(int index);
+
+              void on_comboBoxclient_activated(const QString &arg1);
+
+
+
+
+
+          void on_HR_2_clicked();
 
 private:
   void on_comboBox_2_activated(int index=0);
@@ -176,5 +237,11 @@ private:
    Promo pr;
    QMediaPlaylist* music1;
    QMediaPlayer* music;
+   entreprise tmpentreprise;
+   contrat tmpcontrat;
+   notification n;
+   QMediaPlayer * bulletsound;
+   commande com;
+   Client ctmp;
 };
 #endif // MAINWINDOW_H

@@ -1,11 +1,12 @@
 QT       += core gui charts
 QT       += sql
 QT       += serialport
-QT       += multimedia
+QT       += multimedia multimediawidgets
 QT       += core network serialport
 QT       +=printsupport
 QT += widgets
 QT += gui
+QT       += core printsupport  gui sql network serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 #TEMPLATE = app
 CONFIG += c++11
@@ -26,6 +27,10 @@ SOURCES += \
     Promo.cpp \
     commande.cpp \
     client.cpp \
+    contrat.cpp \
+    entreprise.cpp \
+    smtp.cpp \
+    notification.cpp \
     Publicite.cpp
 
 
@@ -40,6 +45,10 @@ HEADERS += \
     Promo.h \
     commande.h \
     client.h \
+    contrat.h \
+    entreprise.h \
+    smtp.h \
+    notification.h \
     Publicite.h
 
 FORMS += \
@@ -65,4 +74,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Multmedia.qrc \
+    moh.qrc \
+    images.qrc \
     Resources.qrc
+#    rc.qrc

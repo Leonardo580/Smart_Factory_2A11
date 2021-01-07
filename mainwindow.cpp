@@ -5,12 +5,14 @@ MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
 {
-  ui->setupUi(this);
+
+   ui->setupUi(this);
   this->setWindowIcon(QIcon(":/new/prefix1/Resources/logo.JPG"));
    QIcon deletes(":/Resources/minus.png");
    ui->DeleteEmployee->setIcon(deletes);
-
+   ui->DeleteEmployee->setText("Delete");
    ui->DeletePosts->setIcon(deletes);
+   ui->DeletePosts->setText("Delete");
 
 
    ui->DeleteEmployee->setIconSize(ui->DeleteEmployee->size());
@@ -70,6 +72,27 @@ MainWindow::MainWindow(QWidget *parent)
       music->setPlaylist(music1);
       music->setVolume(1);
       music->play();
+
+
+      QMediaPlayer * bulletsound = new QMediaPlayer();
+      //bulletsound->setMedia(QUrl::fromLocalFile("C:/Users/LENOVO/Desktop/son.wav"));
+      QIntValidator *validator=new QIntValidator(1,9999999);
+      ui->matricule_ent->setValidator(validator);
+
+
+
+
+         ui->lineEditcin->setValidator(new QIntValidator(0,99999999,this));
+         ui->lineEditcin1->setValidator(new QIntValidator(0,99999999,this));
+          ui->lineEditnumero->setValidator(new QIntValidator(0,99999999,this));
+        ui->tableView->setModel(ctmp.afficher());
+        ui->tableView_3->setModel(com.afficher());
+
+         ui->ajoutercommande->setIcon((QIcon(":/images/2.png")));
+         ui->ajoutercommande->setIconSize(ui->ajoutercommande->size());
+
+         ui->ajouterclient->setIcon((QIcon(":/images/2.png")));
+         ui->ajouterclient->setIconSize(ui->ajouterclient->size());
 }
 
 void MainWindow::animation_button(QPushButton *b)
@@ -96,7 +119,7 @@ void MainWindow::arduino_output()
 {
   QByteArray b=ar.read_from_arduino();
    qDebug()<<b;
-   if (b.toStdString()=="y")
+   if (b.toStdString()=="3")
      {
        //if (QMessageBox::question(this, "Warning", "fire in the factory has been detected \n"
          // "would you like to sound the alram",QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes){
@@ -873,4 +896,519 @@ void MainWindow::on_pushButton_10_clicked()
         mu->stop();
         ui->pushButton_10->setText("Play");
       }
+}
+void MainWindow::on_ajouter_ent_clicked()
+{
+    entreprise e(ui->matricule_ent->text().toInt(),ui->nom_ent->text(),ui->location_ent->text(),ui->email_ent->text());
+    bool test=e.ajouter();
+    if(test){
+        n.Alerte_Ajout_Ent(ui->matricule_ent->text().toInt(),1);
+        ui->matricule_ent->setText("");
+        ui->nom_ent->setText("");
+        ui->location_ent->setText("");
+        ui->email_ent->setText("");
+        ui->table_ent->setModel(tmpentreprise.afficher());
+        ui->id_entreprise->clear();
+        ui->id_entreprise->addItems(tmpentreprise.getListEntreprise());
+    }
+    else{
+        n.Alerte_Ajout_Ent(ui->matricule_ent->text().toInt(),0);
+    }
+}
+
+void MainWindow::on_modifier_ent_clicked()
+{
+    entreprise e(ui->matricule_ent->text().toInt(),ui->nom_ent->text(),ui->location_ent->text(),ui->email_ent->text());
+    bool test=e.modifier(ui->matricule_ent->text().toInt());
+    if(test){
+        n.Alerte_Modifier_Ent(ui->matricule_ent->text().toInt(),1);
+        ui->matricule_ent->setText("");
+        ui->nom_ent->setText("");
+        ui->location_ent->setText("");
+        ui->email_ent->setText("");
+        ui->table_ent->setModel(tmpentreprise.afficher());
+    }
+    else{
+        n.Alerte_Modifier_Ent(ui->matricule_ent->text().toInt(),0);
+    }
+}
+
+void MainWindow::on_supprimer_ent_clicked()
+{
+    bool test=tmpentreprise.supprimer(ui->matricule_ent->text().toInt());
+    if(test){
+        n.Alerte_Supprimer_Ent(ui->matricule_ent->text().toInt(),1);
+        ui->matricule_ent->setText("");
+        ui->nom_ent->setText("");
+        ui->location_ent->setText("");
+        ui->email_ent->setText("");
+        ui->table_ent->setModel(tmpentreprise.afficher());
+        ui->id_entreprise->clear();
+        ui->id_entreprise->addItems(tmpentreprise.getListEntreprise());
+    }
+    else{
+        n.Alerte_Supprimer_Ent(ui->matricule_ent->text().toInt(),0);
+    }
+}
+
+void MainWindow::on_matricule_ent_textChanged(const QString &arg1)
+{
+    entreprise e=e.getEntreprise(ui->matricule_ent->text().toInt());
+    ui->nom_ent->setText(e.getNom());
+    ui->location_ent->setText(e.getLocation());
+    ui->email_ent->setText(e.getEmail());
+}
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    ui->table_ent->setModel(tmpentreprise.afficher());
+    ui->table_contrat->setModel(tmpcontrat.afficher());
+
+    ui->id_entreprise->clear();
+    ui->id_entreprise->addItems(tmpentreprise.getListEntreprise());
+}
+
+void MainWindow::on_ajouter_contrat_clicked()
+{
+    QDate d=d.currentDate();
+    contrat c(ui->num_contrat->text().toInt(),d,ui->periode_cont->text().toInt(),ui->montant_contrat->text().toDouble(),ui->id_entreprise->currentText().toInt());
+    bool test=c.ajouter();
+    if(test){
+        n.Alerte_Ajout_cont(ui->num_contrat->text().toInt(),1);
+        ui->num_contrat->setText("");
+        ui->periode_cont->setText("");
+        ui->montant_contrat->setText("");
+        //ui->id_entreprise->setText("");
+
+        ui->table_contrat->setModel(tmpcontrat.afficher());
+    }
+    else{
+        n.Alerte_Ajout_cont(ui->num_contrat->text().toInt(),0);
+    }
+}
+
+void MainWindow::on_supprimer_contrat_clicked()
+{
+    bool test= tmpcontrat.supprimer(ui->num_contrat->text().toInt());
+    if(test){
+        n.Alerte_Supprimer_cont(ui->num_contrat->text().toInt(),1);
+        ui->num_contrat->setText("");
+        ui->periode_cont->setText("");
+        ui->montant_contrat->setText("");
+        //ui->id_entreprise->setText("");
+        ui->table_contrat->setModel(tmpcontrat.afficher());
+    }
+    else{
+        n.Alerte_Supprimer_cont(ui->num_contrat->text().toInt(),0);
+    }
+}
+
+void MainWindow::on_num_contrat_textChanged(const QString &arg1)
+{
+    contrat c=c.getContrat(ui->num_contrat->text().toInt());
+    if(c.getPeriode()==0){
+        ui->periode_cont->setText("");
+        ui->montant_contrat->setText("");
+        //ui->id_entreprise->setText("");
+    }
+    else{
+        ui->periode_cont->setText(QString::number(c.getPeriode()));
+        ui->montant_contrat->setText(QString::number(c.getMontant()));
+        //ui->id_entreprise->setText(QString::number(c.getMatriculeEnt()));
+    }
+
+}
+
+void MainWindow::on_modifier_contrat_clicked()
+{
+    QDate d=d.currentDate();
+    contrat c(ui->num_contrat->text().toInt(),d,ui->periode_cont->text().toInt(),ui->montant_contrat->text().toDouble(),ui->id_entreprise->currentText().toInt());
+    bool test=c.modifier(ui->num_contrat->text().toInt());
+    if(test){
+        n.Alerte_Modifier_cont(ui->num_contrat->text().toInt(),1);
+        ui->num_contrat->setText("");
+        ui->periode_cont->setText("");
+        ui->montant_contrat->setText("");
+        //ui->id_entreprise->setText("");
+
+        ui->table_contrat->setModel(tmpcontrat.afficher());
+    }
+    else{
+        n.Alerte_Modifier_cont(ui->num_contrat->text().toInt(),0);
+    }
+}
+
+void MainWindow::on_recherche_contrat_textChanged(const QString &arg1)
+{
+    ui->table_contrat->setModel(tmpcontrat.recherche(ui->recherche_contrat->text()));
+}
+
+void MainWindow::on_pdf_contrat_clicked()
+{
+    /*QMediaPlayer * bulletsound = new QMediaPlayer();
+          bulletsound->setMedia(QUrl::fromLocalFile("C:/Users/21699/Desktop/son.wav"));
+         if (bulletsound->state() == QMediaPlayer::PlayingState){
+              bulletsound->setPosition(0);
+          }
+          else if (bulletsound->state() == QMediaPlayer::StoppedState){
+              bulletsound->play();
+          }*/
+    QString strStream;
+    QTextStream out(&strStream);
+
+    const int rowCount = ui->table_contrat->model()->rowCount();
+    const int columnCount = ui->table_contrat->model()->columnCount();
+
+    out <<  "<html>\n"
+    "<head>\n"
+    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+    <<  QString("<title>%1</title>\n").arg("strTitle")
+     <<  "</head>\n"
+    <<"<body bgcolor=#ffffff link=#5000A0>\n"
+    <<"<center> <H1>Liste des commandes </H1></br></br><table border=1 cellspacing=0 cellpadding=2>\n";
+    out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+    for (int column = 0; column < columnCount; column++){
+        if (!ui->table_contrat->isColumnHidden(column)){
+            out << QString("<th>%1</th>").arg(ui->table_contrat->model()->headerData(column, Qt::Horizontal).toString());
+            out << "</tr></thead>\n";
+            for (int row = 0; row < rowCount; row++) {
+                out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+                for (int column = 0; column < columnCount; column++) {
+                    if (!ui->table_contrat->isColumnHidden(column)) {
+                        QString data = ui->table_contrat->model()->data(ui->table_contrat->model()->index(row, column)).toString().simplified();
+                        out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                    }
+                }
+                out << "</tr>\n";
+            }
+            out <<  "</table> </center>\n"
+            <<"</body>\n"
+            <<"</html>\n";
+        }
+    }
+    QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf"); // to save the pdf file created
+    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+    QPrinter printer (QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(fileName);
+
+    QTextDocument doc;
+    doc.setHtml(strStream);
+    doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+    doc.print(&printer);
+}
+
+void MainWindow::on_anas_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+
+void MainWindow::on_ajouterclient_clicked()
+{   QString CIN=ui->lineEditcin->text();
+    qDebug() <<"dddd";
+   (ctmp.recherche_CIN(CIN));
+    QString nom=ui->lineEditnom->text();
+    QString prenom=ui->lineEditprenom->text();
+     QString numero=ui->lineEditnumero->text();
+    QString adresse=ui->lineEditadresse->text();
+    QString date_naissance=ui->dateEdit->text();
+    Client C(CIN,nom,prenom,numero,adresse,date_naissance);
+    bool test=C.ajouter();
+    if(test)
+    {    ui->tableView->setModel(ctmp.afficher());
+        QMessageBox::information(nullptr,QObject::tr("ok"),
+                                 QObject::tr("ajout effectue \n Click cancel to exit"),QMessageBox::Cancel);
+        ui->lineEditadresse->clear();
+        ui->lineEditcin->clear();
+        ui->lineEditnom->clear();
+        ui->lineEditprenom->clear();
+        ui->dateEdit->clear();
+        ui->lineEditnumero->clear();
+}
+else QMessageBox::critical(nullptr,QObject::tr("not OK"),QObject::tr("Ajout non effectue\n Click cancel to exit"),QMessageBox::Cancel);
+}
+void MainWindow::on_supprimerclient_clicked()
+{
+    QString CIN=ui->lineEdit_cind->text();
+    bool test=ctmp.supprimer(CIN);
+    if(test)
+    {ui->tableView->setModel(ctmp.afficher());
+      /*  QMessageBox::information(nullptr,QObject::tr("ok"),
+                                 QObject::tr("Suppression effectue\n click cancel to exit"),QMessageBox::Cancel);
+       */ ui->lineEdit_cind->clear();
+    }
+    else QMessageBox::critical(nullptr,QObject::tr("ok"),
+                                  QObject::tr("Suppression non effectue\n click cancel to exit"),QMessageBox::Cancel);
+     }
+
+
+
+void MainWindow::on_modifierclient_clicked()
+{
+    QString CIN=ui->lineEditcinm->text();
+        QString nom=ui->lineEditnomm->text();
+        QString prenom=ui->lineEditprenomm->text();
+         QString numero=ui->lineEditnumerom->text();
+        QString adresse=ui->lineEditadressem->text();
+        QString date_naissance=ui->dateEdit_2->text();
+        QSqlQuery query;
+            query.prepare("update Client set CIN='"+CIN+"',nom='"+nom+"',prenom='"+prenom+"',numero='"+numero+"',adresse='"+adresse+"',date_naissance='"+date_naissance+"'where CIN='"+CIN+"'");
+
+        if(query.exec())
+        {    ui->tableView->setModel(ctmp.afficher());
+            QMessageBox::information(nullptr,QObject::tr("ok"),
+                                     QObject::tr("update effectue \n Click cancel to exit"),QMessageBox::Cancel);
+            ui->lineEditadresse->clear();
+            ui->lineEditcin->clear();
+            ui->lineEditnom->clear();
+            ui->lineEditprenom->clear();
+            ui->dateEdit->clear();
+            ui->lineEditnumero->clear();
+         }
+   }
+
+void MainWindow::on_ajoutercommande_clicked()
+{   float prixunitaire=0;
+    QString CINC=ui->lineEditcin1->text();
+
+    QString adresse=ui->lineEdit_2->text();
+     QString type=ui->comboBox_3->currentText();
+     if(type=="mercedes")
+         prixunitaire=100000;
+     else if (type=="Audi")
+         prixunitaire=50000;
+     else if(type=="BMW")
+         prixunitaire=75000;
+     int quantite=ui->lineEdit->text().toInt();
+      float prix=quantite*prixunitaire;
+    QString date_paiment=ui->dateEdit_4->text();
+
+    commande com(CINC,type,adresse,date_paiment,quantite,prixunitaire,prix);
+    bool test=com.ajouter();
+    bool test2=ctmp.recherche_CIN2(CINC);
+    if((test)&&(test2))
+    {    ui->tableView_3->setModel(com.afficher());
+        QMessageBox::information(nullptr,QObject::tr("ok"),
+                                 QObject::tr("ajout effectue \n Click cancel to exit"),QMessageBox::Cancel);
+        ui->lineEditcin1->clear();
+        ui->lineEdit_2->clear();
+        ui->lineEdit->clear();
+        ui->dateEdit_4->clear();
+
+
+}else QMessageBox::critical(nullptr,QObject::tr("not OK"),QObject::tr("Ajout non effectue\n Click cancel to exit"),QMessageBox::Cancel);
+}
+
+void MainWindow::on_supprimercommande_clicked()
+{
+    QString CINC=ui->lineEdit_20->text();
+    bool test=com.supprimer(CINC);
+    if(test)
+    {ui->tableView_3->setModel(com.afficher());
+      /*  QMessageBox::information(nullptr,QObject::tr("ok"),
+                                 QObject::tr("Suppression effectue\n click cancel to exit"),QMessageBox::Cancel);
+       */ ui->lineEdit_20->clear();
+    }
+    else QMessageBox::critical(nullptr,QObject::tr("ok"),
+                                  QObject::tr("Suppression non effectue\n click cancel to exit"),QMessageBox::Cancel);
+}
+
+void MainWindow::on_modifiercommande_clicked()
+{   float prixunitaire=0,prix=0;
+    QString CINC=ui->lineEditcin_3->text();
+    QString type=ui->comboBox_4->currentText();
+    QString adresse=ui->lineEditadres_3->text();
+     QString date_paiment=ui->dateEdit_5->text();
+    int quantite=ui->lineEdit_quantite5->text().toInt();
+    if(type=="mercedes")
+             prixunitaire=100000;
+         else if (type=="Audi")
+             prixunitaire=50000;
+         else if(type=="BMW")
+             prixunitaire=75000;
+          prix=prixunitaire*quantite;
+    QSqlQuery query;
+        query.prepare("update COMMANDE set type=:type,adresse=:adresse,date_paiment=:date_paiment,quantite=:quantite,prixunitaire=:prixunitaire,prix=:prix where CINC=:CINC;");
+        query.bindValue(":CINC",CINC);
+        query.bindValue(":type",type);
+        query.bindValue(":adresse",adresse);
+        query.bindValue(":date_paiment",date_paiment);
+        query.bindValue(":quantite",QString::number(quantite));
+        query.bindValue(":prixunitaire", QString::number(prixunitaire));
+        query.bindValue(":prix",QString::number(prix));
+    if(query.exec())
+    {    ui->tableView_3->setModel(com.afficher());
+        QMessageBox::information(nullptr,QObject::tr("ok"),
+                                 QObject::tr("update effectue \n Click cancel to exit"),QMessageBox::Cancel);
+
+}}
+
+void MainWindow::on_pushButton_RC_clicked()
+{
+    QString nom=ui->lineEdit_3->text();
+     QString adresse=ui->lineEdit_4->text();
+     QString numero=ui->lineEdit_5->text();
+     ui->tableView_rechercher->setModel(ctmp.rechercher_3(nom,adresse,numero));
+
+                   ui->tableView_rechercher->show();
+}
+
+/* void MainWindow::on_tabWidget_tabBarClicked(int index)
+{
+    QPieSeries *series= new QPieSeries();
+         QSqlQuery query;
+         query.prepare("select CINC, quantite from commande");
+         QVector<int> q;
+         QVector<QString> vectdesc;
+         if(query.exec()){
+             while(query.next()){
+             vectdesc.push_back(query.value(0).toString());
+             q.push_back(query.value(1).toInt());
+               }
+
+          int s=0;
+          for (int i=0;i<q.size();i++) s+=q[i];
+
+          for (int i=0;i<vectdesc.size();i++){
+         series->append(vectdesc[i], (qreal)((qreal)q[i]/(qreal)s)*100.0);
+
+            }
+         QChart *ch= new QChart();
+         ch->addSeries(series);
+         ch->setTitle(QString("stat des CINC des commandes par rapport au quantite"));
+         ch->legend()->show();
+         ch->setAnimationOptions(QChart::AllAnimations);
+         QChartView *chart=new QChartView(ch);
+         chart->setRenderHint(QPainter::Antialiasing);//graphique
+         chart->setGeometry(ui->graphicsView_3->geometry());//taille de la page
+         QGridLayout q;
+         q.addWidget(chart);
+         ui->graphicsView_3->setLayout(&q);
+           }
+}
+*/
+void MainWindow::on_pushButton_imp_clicked()
+{
+    QString strStream;
+                     QTextStream out(&strStream);
+
+                     const int rowCount = ui->tableView->model()->rowCount();
+                     const int columnCount = ui->tableView->model()->columnCount();
+
+                     out <<  "<html>\n"
+                         "<head>\n"
+                         "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                         <<  QString("<title>%1</title>\n").arg("strTitle")
+                         <<  "</head>\n"
+                         "<body bgcolor=#ffffff link=#5000A0>\n"
+
+                        //     "<align='right'> " << datefich << "</align>"
+                         "<center> <H1>Liste des clients </H1></br></br><table border=1 cellspacing=0 cellpadding=2>\n";
+
+                     // headers
+                     out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+                     for (int column = 0; column < columnCount; column++)
+                         if (!ui->tableView->isColumnHidden(column))
+                             out << QString("<th>%1</th>").arg(ui->tableView->model()->headerData(column, Qt::Horizontal).toString());
+                     out << "</tr></thead>\n";
+
+                     // data table
+                     for (int row = 0; row < rowCount; row++) {
+                         out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+                         for (int column = 0; column < columnCount; column++) {
+                             if (!ui->tableView->isColumnHidden(column)) {
+                                 QString data = ui->tableView->model()->data(ui->tableView->model()->index(row, column)).toString().simplified();
+                                 out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                             }
+                         }
+                         out << "</tr>\n";
+                     }
+                     out <<  "</table> </center>\n"
+                         "</body>\n"
+                         "</html>\n";
+
+               QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf");
+                 if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+                QPrinter printer (QPrinter::PrinterResolution);
+                 printer.setOutputFormat(QPrinter::PdfFormat);
+                printer.setPaperSize(QPrinter::A4);
+               printer.setOutputFileName(fileName);
+
+                QTextDocument doc;
+                 doc.setHtml(strStream);
+                 doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+                 doc.print(&printer);
+}
+
+void MainWindow::on_comboBoxclient_activated(const QString &arg1)
+{
+    // ui->tableView->setModel(f.tri_nom());
+        //qDebug()<<arg1;
+            if(arg1=="CIN")
+               {
+                    ui->tableView->setModel(ctmp.tri_CIN());
+               }
+
+            if(arg1=="Nom")
+               {
+                    ui->tableView->setModel(ctmp.tri_nom());
+               }
+
+            if(arg1=="prenom")
+               {
+                    ui->tableView->setModel(ctmp.tri_prenom());
+               }
+            if(arg1=="numero")
+                       {
+                            ui->tableView->setModel(ctmp.tri_numero());
+                       }
+            if(arg1=="adresse")
+               {
+                    ui->tableView->setModel(ctmp.tri_adresse());
+               }
+
+}
+
+
+void MainWindow::on_tabstats_tabBarClicked(int index)
+{
+    QPieSeries *series= new QPieSeries();
+         QSqlQuery query;
+         query.prepare("select CINC, quantite from commande");
+         QVector<int> q;
+         QVector<QString> vectdesc;
+         if(query.exec()){
+             while(query.next()){
+             vectdesc.push_back(query.value(0).toString());
+             q.push_back(query.value(1).toInt());
+               }
+
+          int s=0;
+          for (int i=0;i<q.size();i++) s+=q[i];
+
+          for (int i=0;i<vectdesc.size();i++){
+         series->append(vectdesc[i], (qreal)((qreal)q[i]/(qreal)s)*100.0);
+
+            }
+         QChart *ch= new QChart();
+         ch->addSeries(series);
+         ch->setTitle(QString("stat des CINC des commandes par rapport au quantite"));
+         ch->legend()->show();
+         ch->setAnimationOptions(QChart::AllAnimations);
+         QChartView *chart=new QChartView(ch);
+         chart->setRenderHint(QPainter::Antialiasing);//graphique
+         chart->setGeometry(ui->graphicsView_3->geometry());//taille de la page
+         QGridLayout q;
+         q.addWidget(chart);
+         ui->graphicsView_3->setLayout(&q);
+           }
+}
+
+void MainWindow::on_HR_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }

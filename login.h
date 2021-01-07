@@ -22,7 +22,8 @@ private slots:
   void on_DeleteEmployee_button_2_clicked();
 
 private:
-  //QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
+  QSqlDatabase db= QSqlDatabase::addDatabase("QODBC");
+  int verif;
   Ui::login *ui;
 };
 
