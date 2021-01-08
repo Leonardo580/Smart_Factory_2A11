@@ -55,7 +55,7 @@
 #include "QSound"
 #include "employees.h"
 #include "posts.h"
-#include "src/SmtpMime"
+//#include "src/SmtpMime"
 #include "arduino.h"
 #include "Publicite.h"
 #include"Promo.h"
@@ -136,6 +136,8 @@ private slots:
 
   void avgPosts();
   void sumPosts();
+  void on_pushButton_9_clicked();
+  void on_pushButton_10_clicked();
 
 
  // void on_actionFalse_Alarm_triggered();
@@ -166,32 +168,27 @@ private slots:
           void on_aziz_clicked();
 
 
-          void on_pushButton_9_clicked();
-
-          void on_pushButton_10_clicked();
-
           void on_ajouter_ent_clicked();
 
-          void on_modifier_ent_clicked();
+              void on_modifier_ent_clicked();
 
-          void on_supprimer_ent_clicked();
+              void on_supprimer_ent_clicked();
 
-          void on_matricule_ent_textChanged(const QString &arg1);
+              void on_matricule_ent_textChanged(const QString &arg1);
 
-          void on_tabWidget_currentChanged(int index);
+              void on_ajouter_contrat_clicked();
 
-          void on_ajouter_contrat_clicked();
+              void on_supprimer_contrat_clicked();
 
-          void on_supprimer_contrat_clicked();
+              void on_num_contrat_textChanged(const QString &arg1);
 
-          void on_num_contrat_textChanged(const QString &arg1);
+              void on_modifier_contrat_clicked();
 
-          void on_modifier_contrat_clicked();
+              void on_recherche_contrat_textChanged(const QString &arg1);
 
-          void on_recherche_contrat_textChanged(const QString &arg1);
+              void on_pdf_contrat_clicked();
 
-          void on_pdf_contrat_clicked();
-
+              void on_Affichage_ent_cont_currentChanged(int index);
 
           void on_anas_clicked();
 

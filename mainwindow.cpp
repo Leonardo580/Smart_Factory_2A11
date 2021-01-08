@@ -395,11 +395,11 @@ void MainWindow::on_tableViewPost_activated(const QModelIndex &index)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    //QString to=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),4).data().toString();
+    QString to=ui->tableView_2->model()->index(ui->tableView_2->currentIndex().row(),4).data().toString();
 
-
-   // e.show();
-    //e.exec();
+    Email e("smtp.gmail.com", 465, "anas.benbrahim@esprit.tn","191JMT4743" ,"anasbenbrahim9@gmail.com", this);
+    e.show();
+    e.exec();
 
 }
 
@@ -897,6 +897,7 @@ void MainWindow::on_pushButton_10_clicked()
         ui->pushButton_10->setText("Play");
       }
 }
+
 void MainWindow::on_ajouter_ent_clicked()
 {
     entreprise e(ui->matricule_ent->text().toInt(),ui->nom_ent->text(),ui->location_ent->text(),ui->email_ent->text());
@@ -957,15 +958,6 @@ void MainWindow::on_matricule_ent_textChanged(const QString &arg1)
     ui->nom_ent->setText(e.getNom());
     ui->location_ent->setText(e.getLocation());
     ui->email_ent->setText(e.getEmail());
-}
-
-void MainWindow::on_tabWidget_currentChanged(int index)
-{
-    ui->table_ent->setModel(tmpentreprise.afficher());
-    ui->table_contrat->setModel(tmpcontrat.afficher());
-
-    ui->id_entreprise->clear();
-    ui->id_entreprise->addItems(tmpentreprise.getListEntreprise());
 }
 
 void MainWindow::on_ajouter_contrat_clicked()
@@ -1099,6 +1091,17 @@ void MainWindow::on_pdf_contrat_clicked()
     doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
     doc.print(&printer);
 }
+
+void MainWindow::on_Affichage_ent_cont_currentChanged(int index)
+{
+    ui->table_ent->setModel(tmpentreprise.afficher());
+    ui->table_contrat->setModel(tmpcontrat.afficher());
+
+    ui->id_entreprise->clear();
+    ui->id_entreprise->addItems(tmpentreprise.getListEntreprise());
+
+}
+
 
 void MainWindow::on_anas_clicked()
 {

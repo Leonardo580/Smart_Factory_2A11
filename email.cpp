@@ -27,35 +27,9 @@ Email::Email(QString host, int port, QString sender,QString password ,QString to
 
 bool Email::sendEmail()
 {
-  SmtpClient smtp(host, port , SmtpClient::SslConnection);
-  smtp.setUser(sender);
-  smtp.setPassword(password);
-  //smtp.getSocket()->setProxy(QNetworkProxy::NoProxy);
- //smtp.setAuthMethod(SmtpClient::AuthLogin);
-  MimeMessage message;
-  EmailAddress send (sender,sender.section('@',0, 0));
 
-  message.setSender(&send);
-  if (to.isEmpty()) to=ui->to_text->text();
-  EmailAddress to2(to, to.section('@', 0, 0));
-  message.addRecipient(&to2);
-  message.setSubject(subject);
-  MimeText text;
-  text.setText(Email::text);
-  message.addPart(&text);
-  if(!smtp.connectToHost()){
-      qDebug() << "failed to connect to the host\n";
-      return false;
-    }
-  if (!smtp.login()){
-      qDebug()<< "failed to login\n";
-      return false;
-    }
-  if (!smtp.sendMail(message)){
-      qDebug() << "failed to send message\n";
-      return false;
-    }
-  smtp.quit();
+  Smtp* smtp = new Smtp("anas.benbrahim@esprit.tn", "191JMT4743", host, port);
+  smtp->sendMail("anas.benbrahim@esprit.tn", ui->to_text->text(),subject, ui->Big_text->toPlainText());
   return true;
 }
 

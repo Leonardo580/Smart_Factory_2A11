@@ -17,7 +17,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 SOURCES += \
     arduino.cpp \
-#    email.cpp \
+    email.cpp \
     employees.cpp \
 #    hr.cpp \
     login.cpp \
@@ -36,7 +36,7 @@ SOURCES += \
 
 HEADERS += \
     arduino.h \
-#    email.h \
+    email.h \
     employees.h \
 #    hr.h \
     login.h \
@@ -52,7 +52,7 @@ HEADERS += \
     Publicite.h
 
 FORMS += \
-#    email.ui \
+    email.ui \
 #    hr.ui \
     login.ui \
     mainwindow.ui

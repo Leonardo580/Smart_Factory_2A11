@@ -54,11 +54,11 @@ void login::on_DeleteEmployee_button_2_clicked()
  {
      Smtp* smtp = new Smtp("anas.benbrahim@esprit.tn", "191JMT4743", "smtp.gmail.com", 465);
 
-     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+    // connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
 
 
-     smtp->sendMail("anas.benbrahim@esprit.tn","mohamedamine.mehrez@esprit.tn","alert","Quelqu'un veut entrer a ton application");
+     smtp->sendMail("anas.benbrahim@esprit.tn","anasbenbrahim9@gmail.com","alert","Quelqu'un veut entrer a ton application");
      verif=0;
  }
 
